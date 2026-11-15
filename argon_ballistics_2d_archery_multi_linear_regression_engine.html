@@ -1,0 +1,2963 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2D Archery &amp; Multi-Linear Regression Engine (100% Offline Edition)</title>
+    <style>
+        /* Embedded Pre-Compiled Tailwind CSS Utilities (Zero External CDN Required) */
+        *, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }
+        *,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}
+        :host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;-webkit-tap-highlight-color:transparent}
+        body{margin:0;line-height:inherit}
+        button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}
+        button,select{text-transform:none}
+        button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}
+        [role=button],button{cursor:pointer}
+        audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}
+        .pointer-events-none{pointer-events:none}
+        .pointer-events-auto{pointer-events:auto}
+        .fixed{position:fixed}
+        .absolute{position:absolute}
+        .relative{position:relative}
+        .inset-0{inset:0px}
+        .inset-1\.5{inset:0.375rem}
+        .bottom-1\.5{bottom:0.375rem}
+        .left-1{left:0.25rem}
+        .left-1\/2{left:50%}
+        .left-2{left:0.5rem}
+        .right-1{right:0.25rem}
+        .right-2{right:0.5rem}
+        .top-0\.5{top:0.125rem}
+        .top-1\.5{top:0.375rem}
+        .top-14{top:3.5rem}
+        .z-0{z-index:0}
+        .z-20{z-index:20}
+        .z-50{z-index:50}
+        .mb-0\.5{margin-bottom:0.125rem}
+        .mb-1{margin-bottom:0.25rem}
+        .ml-0\.5{margin-left:0.125rem}
+        .ml-1{margin-left:0.25rem}
+        .mt-0\.5{margin-top:0.125rem}
+        .mt-1{margin-top:0.25rem}
+        .mt-1\.5{margin-top:0.375rem}
+        .block{display:block}
+        .flex{display:flex}
+        .grid{display:grid}
+        .hidden{display:none}
+        .h-14{height:3.5rem}
+        .h-2{height:0.5rem}
+        .h-2\.5{height:0.625rem}
+        .h-3{height:0.75rem}
+        .h-3\.5{height:0.875rem}
+        .h-4{height:1rem}
+        .h-5{height:1.25rem}
+        .h-6{height:1.5rem}
+        .h-7{height:1.75rem}
+        .h-full{height:100%}
+        .h-screen{height:100vh}
+        .w-14{width:3.5rem}
+        .w-2{width:0.5rem}
+        .w-2\.5{width:0.625rem}
+        .w-3{width:0.75rem}
+        .w-3\.5{width:0.875rem}
+        .w-4{width:1rem}
+        .w-5{width:1.25rem}
+        .w-6{width:1.5rem}
+        .w-full{width:100%}
+        .w-px{width:1px}
+        .w-screen{width:100vw}
+        .min-w-\[22px\]{min-width:22px}
+        .min-w-\[36px\]{min-width:36px}
+        .min-w-\[78px\]{min-width:78px}
+        .max-w-2xl{max-width:42rem}
+        .max-w-\[90px\]{max-width:90px}
+        .max-w-\[92vw\]{max-width:92vw}
+        .max-w-full{max-width:100%}
+        .flex-1{flex:1 1 0%}
+        .shrink-0{flex-shrink:0}
+        .-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
+        @keyframes pulse{50%{opacity:.5}}
+        .animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .animate-spin{animation:spin 1s linear infinite}
+        .cursor-grab{cursor:grab}
+        .cursor-pointer{cursor:pointer}
+        .touch-none{touch-action:none}
+        .select-none{-webkit-user-select:none;user-select:none}
+        .select-all{-webkit-user-select:all;user-select:all}
+        .grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}
+        .grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}
+        .grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}
+        .flex-row{flex-direction:row}
+        .flex-col{flex-direction:column}
+        .flex-wrap{flex-wrap:wrap}
+        .items-end{align-items:flex-end}
+        .items-center{align-items:center}
+        .items-baseline{align-items:baseline}
+        .justify-center{justify-content:center}
+        .justify-between{justify-content:space-between}
+        .gap-1{gap:0.25rem}
+        .gap-1\.5{gap:0.375rem}
+        .gap-2{gap:0.5rem}
+        .gap-2\.5{gap:0.625rem}
+        .gap-3{gap:0.75rem}
+        .self-end{align-self:flex-end}
+        .overflow-hidden{overflow:hidden}
+        .overflow-x-auto{overflow-x:auto}
+        .truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .rounded{border-radius:0.25rem}
+        .rounded-2xl{border-radius:1rem}
+        .rounded-full{border-radius:9999px}
+        .rounded-lg{border-radius:0.5rem}
+        .rounded-xl{border-radius:0.75rem}
+        .border{border-width:1px}
+        .border-2{border-width:2px}
+        .border-x{border-left-width:1px;border-right-width:1px}
+        .border-t{border-top-width:1px}
+        .border-dashed{border-style:dashed}
+        .border-amber-500\/30{border-color:rgb(245 158 11 / 0.3)}
+        .border-amber-500\/40{border-color:rgb(245 158 11 / 0.4)}
+        .border-emerald-500\/40{border-color:rgb(16 185 129 / 0.4)}
+        .border-indigo-400\/50{border-color:rgb(129 140 248 / 0.5)}
+        .border-indigo-500\/40{border-color:rgb(99 102 241 / 0.4)}
+        .border-rose-500\/40{border-color:rgb(244 63 94 / 0.4)}
+        .border-sky-500\/30{border-color:rgb(14 165 233 / 0.3)}
+        .border-slate-600{border-color:rgb(71 85 105)}
+        .border-slate-700{border-color:rgb(51 65 85)}
+        .border-slate-700\/60{border-color:rgb(51 65 85 / 0.6)}
+        .border-slate-700\/80{border-color:rgb(51 65 85 / 0.8)}
+        .border-slate-800{border-color:rgb(30 41 59)}
+        .border-slate-800\/70{border-color:rgb(30 41 59 / 0.7)}
+        .border-slate-800\/80{border-color:rgb(30 41 59 / 0.8)}
+        .border-slate-800\/90{border-color:rgb(30 41 59 / 0.9)}
+        .border-white\/80{border-color:rgb(255 255 255 / 0.8)}
+        .bg-amber-500\/20{background-color:rgb(245 158 11 / 0.2)}
+        .bg-emerald-500\/20{background-color:rgb(16 185 129 / 0.2)}
+        .bg-emerald-500\/25{background-color:rgb(16 185 129 / 0.25)}
+        .bg-indigo-400{background-color:rgb(129 140 248)}
+        .bg-indigo-500\/25{background-color:rgb(99 102 241 / 0.25)}
+        .bg-rose-500\/20{background-color:rgb(244 63 94 / 0.2)}
+        .bg-slate-700\/80{background-color:rgb(51 65 85 / 0.8)}
+        .bg-slate-800{background-color:rgb(30 41 59)}
+        .bg-slate-800\/90{background-color:rgb(30 41 59 / 0.9)}
+        .bg-slate-900\/80{background-color:rgb(15 23 42 / 0.8)}
+        .bg-slate-900\/85{background-color:rgb(15 23 42 / 0.85)}
+        .bg-slate-900\/90{background-color:rgb(15 23 42 / 0.9)}
+        .bg-slate-900\/95{background-color:rgb(15 23 42 / 0.95)}
+        .bg-slate-950\/80{background-color:rgb(2 6 23 / 0.8)}
+        .bg-slate-950\/90{background-color:rgb(2 6 23 / 0.9)}
+        .bg-gradient-to-br{background-image:linear-gradient(to bottom right, var(--tw-gradient-stops))}
+        .bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}
+        .from-amber-400{--tw-gradient-from:#fbbf24 var(--tw-gradient-from-position);--tw-gradient-to:rgb(251 191 36 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}
+        .from-cyan-400{--tw-gradient-from:#22d3ee var(--tw-gradient-from-position);--tw-gradient-to:rgb(34 211 238 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}
+        .via-amber-500{--tw-gradient-to:rgb(245 158 11 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), #f59e0b var(--tw-gradient-via-position), var(--tw-gradient-to)}
+        .to-orange-500{--tw-gradient-to:#f97316 var(--tw-gradient-to-position)}
+        .to-orange-600{--tw-gradient-to:#ea580c var(--tw-gradient-to-position)}
+        .to-sky-400{--tw-gradient-to:#38bdf8 var(--tw-gradient-to-position)}
+        .p-1{padding:0.25rem}
+        .p-2{padding:0.5rem}
+        .p-2\.5{padding:0.625rem}
+        .px-1{padding-left:0.25rem;padding-right:0.25rem}
+        .px-1\.5{padding-left:0.375rem;padding-right:0.375rem}
+        .px-2{padding-left:0.5rem;padding-right:0.5rem}
+        .px-2\.5{padding-left:0.625rem;padding-right:0.625rem}
+        .px-3{padding-left:0.75rem;padding-right:0.75rem}
+        .px-3\.5{padding-left:0.875rem;padding-right:0.875rem}
+        .py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}
+        .py-1{padding-top:0.25rem;padding-bottom:0.25rem}
+        .py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}
+        .py-2{padding-top:0.5rem;padding-bottom:0.5rem}
+        .pr-0\.5{padding-right:0.125rem}
+        .pt-1{padding-top:0.25rem}
+        .pt-1\.5{padding-top:0.375rem}
+        .text-left{text-align:left}
+        .text-center{text-align:center}
+        .text-right{text-align:right}
+        .text-\[10px\]{font-size:10px}
+        .text-\[11px\]{font-size:11px}
+        .text-\[7px\]{font-size:7px}
+        .text-\[8px\]{font-size:8px}
+        .text-\[9px\]{font-size:9px}
+        .text-lg{font-size:1.125rem;line-height:1.75rem}
+        .text-sm{font-size:0.875rem;line-height:1.25rem}
+        .text-xs{font-size:0.75rem;line-height:1rem}
+        .font-bold{font-weight:700}
+        .font-extrabold{font-weight:800}
+        .font-semibold{font-weight:600}
+        .uppercase{text-transform:uppercase}
+        .leading-none{line-height:1}
+        .leading-tight{line-height:1.25}
+        .tracking-tight{letter-spacing:-0.025em}
+        .tracking-wide{letter-spacing:0.025em}
+        .tracking-wider{letter-spacing:0.05em}
+        .tracking-widest{letter-spacing:0.1em}
+        .text-amber-200{color:rgb(253 230 138)}
+        .text-amber-300{color:rgb(252 211 77)}
+        .text-amber-300\/90{color:rgb(252 211 77 / 0.9)}
+        .text-amber-400{color:rgb(251 191 36)}
+        .text-amber-500{color:rgb(245 158 11)}
+        .text-cyan-300{color:rgb(103 232 249)}
+        .text-emerald-300{color:rgb(110 231 183)}
+        .text-emerald-400{color:rgb(52 211 153)}
+        .text-indigo-200{color:rgb(199 210 254)}
+        .text-indigo-300{color:rgb(165 180 252)}
+        .text-rose-300{color:rgb(253 164 175)}
+        .text-rose-400{color:rgb(251 113 133)}
+        .text-sky-300{color:rgb(125 211 252)}
+        .text-sky-400{color:rgb(56 189 248)}
+        .text-slate-200{color:rgb(226 232 240)}
+        .text-slate-300{color:rgb(203 213 225)}
+        .text-slate-400{color:rgb(148 163 184)}
+        .text-slate-500{color:rgb(100 116 139)}
+        .text-slate-600{color:rgb(71 85 105)}
+        .text-slate-950{color:rgb(2 6 23)}
+        .text-white{color:rgb(255 255 255)}
+        .opacity-80{opacity:0.8}
+        .shadow-2xl{box-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25)}
+        .shadow-inner{box-shadow:inset 0 2px 4px 0 rgb(0 0 0 / 0.05)}
+        .shadow-lg{box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)}
+        .shadow-md{box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)}
+        .shadow-sm{box-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05)}
+        .transition{transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}
+        .transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}
+        .duration-100{transition-duration:100ms}
+        .duration-75{transition-duration:75ms}
+        .hover\:border-indigo-400:hover{border-color:rgb(129 140 248)}
+        .hover\:bg-emerald-500\/35:hover{background-color:rgb(16 185 129 / 0.35)}
+        .hover\:bg-indigo-500\/40:hover{background-color:rgb(99 102 241 / 0.4)}
+        .hover\:bg-rose-500\/35:hover{background-color:rgb(244 63 94 / 0.35)}
+        .hover\:bg-slate-700:hover{background-color:rgb(51 65 85)}
+        .hover\:from-amber-300:hover{--tw-gradient-from:#fcd34d var(--tw-gradient-from-position);--tw-gradient-to:rgb(252 211 77 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}
+        .hover\:from-cyan-300:hover{--tw-gradient-from:#67e8f9 var(--tw-gradient-from-position);--tw-gradient-to:rgb(103 232 249 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}
+        .hover\:to-orange-400:hover{--tw-gradient-to:#fb923c var(--tw-gradient-to-position)}
+        .hover\:to-sky-300:hover{--tw-gradient-to:#7dd3fc var(--tw-gradient-to-position)}
+        .hover\:opacity-100:hover{opacity:1}
+        .focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}
+        .active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
+        .active\:cursor-grabbing:active{cursor:grabbing}
+        @media (min-width: 640px){
+            .sm\:block{display:block}
+            .sm\:inline{display:inline}
+            .sm\:flex{display:flex}
+            .sm\:h-16{height:4rem}
+            .sm\:h-5{height:1.25rem}
+            .sm\:h-7{height:1.75rem}
+            .sm\:w-16{width:4rem}
+            .sm\:w-5{width:1.25rem}
+            .sm\:w-7{width:1.75rem}
+            .sm\:w-\[320px\]{width:320px}
+            .sm\:gap-1\.5{gap:0.375rem}
+            .sm\:gap-2\.5{gap:0.625rem}
+            .sm\:gap-3{gap:0.75rem}
+            .sm\:gap-4{gap:1rem}
+            .sm\:px-5{padding-left:1.25rem;padding-right:1.25rem}
+            .sm\:py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}
+            .sm\:text-\[10px\]{font-size:10px}
+            .sm\:text-lg{font-size:1.125rem;line-height:1.75rem}
+            .sm\:text-sm{font-size:0.875rem;line-height:1.25rem}
+            .sm\:text-xs{font-size:0.75rem;line-height:1rem}
+        }
+        @media (min-width: 768px){.md\:inline{display:inline}}
+        @media (min-width: 1024px){.lg\:inline{display:inline}}
+
+        /* Custom Game Styles & Offline System Font Stacks */
+        :root {
+            --bg-dark: #060913;
+            --accent: #f59e0b;
+        }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            user-select: none;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+        .glass-hud {
+            background: rgba(10, 15, 29, 0.78);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
+        }
+        .bow-pill {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bow-pill.active {
+            border-color: var(--bow-color, #f59e0b);
+            background: linear-gradient(145deg, rgba(245, 158, 11, 0.18), rgba(15, 23, 42, 0.92));
+            box-shadow: 0 0 18px rgba(245, 158, 11, 0.25);
+            transform: translateY(-1px);
+        }
+
+        /* High-Craft Tactical Sliders */
+        .tactical-slider-wrap {
+            position: relative;
+            height: 26px;
+            display: flex;
+            align-items: center;
+        }
+        .tactical-track-bg {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: rgba(15, 23, 42, 0.95);
+            border-radius: 999px;
+            border: 1px solid rgba(71, 85, 105, 0.55);
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .tactical-track-cap {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(51, 65, 85, 0.7);
+            border-right: 2px dashed rgba(248, 113, 113, 0.75);
+            transition: width 0.25s ease;
+        }
+        .tactical-track-fill {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, #f59e0b, #ea580c);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.65);
+            border-radius: 999px;
+        }
+        .tactical-range {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 26px;
+            background: transparent;
+            position: relative;
+            z-index: 10;
+            cursor: pointer;
+            margin: 0;
+        }
+        .tactical-range:focus {
+            outline: none;
+        }
+        .tactical-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            background: #f8fafc;
+            border: 2.5px solid #f59e0b;
+            box-shadow: 0 0 14px rgba(245, 158, 11, 0.9), inset 0 0 4px rgba(245, 158, 11, 0.4);
+            transition: transform 0.12s ease, background-color 0.12s ease;
+        }
+        .tactical-range::-webkit-slider-thumb:hover,
+        .tactical-range::-webkit-slider-thumb:active {
+            transform: scale(1.18);
+            background: #fef3c7;
+        }
+        .tactical-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            background: #f8fafc;
+            border: 2.5px solid #f59e0b;
+            box-shadow: 0 0 14px rgba(245, 158, 11, 0.9);
+            transition: transform 0.12s ease;
+        }
+
+        /* Mobile Landscape Compact HUD Optimization (Prevents UI from covering screen) */
+        @media screen and (max-height: 540px), screen and (max-width: 950px) {
+            .compact-top-bar {
+                padding: 4px 8px !important;
+                gap: 4px !important;
+            }
+            .compact-bottom-bar {
+                max-height: 78px !important;
+                padding: 4px 8px !important;
+            }
+            .compact-slider-box {
+                padding: 3px 8px !important;
+            }
+            .tactical-slider-wrap {
+                height: 18px !important;
+            }
+            .tactical-range {
+                height: 18px !important;
+            }
+            .tactical-range::-webkit-slider-thumb {
+                width: 15px !important;
+                height: 15px !important;
+            }
+            .joystick-pad-mobile {
+                width: 52px !important;
+                height: 52px !important;
+            }
+            .joystick-knob-mobile {
+                width: 22px !important;
+                height: 22px !important;
+            }
+            #mlTelemetryDrawer:not(.mobile-open) {
+                display: none !important;
+            }
+        }
+
+        /* Portrait Mode Gentle Banner */
+        @media screen and (max-width: 640px) and (orientation: portrait) {
+            #portraitNotice {
+                display: flex !important;
+            }
+        }
+
+        /* Instructions Modal Styles (100% Offline Self-Contained) */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            background: rgba(2, 6, 23, 0.78);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+        .modal-backdrop.hidden {
+            display: none !important;
+        }
+        .modal-card {
+            width: 100%;
+            max-width: 650px;
+            max-height: 88vh;
+            overflow-y: auto;
+            border-radius: 18px;
+            background: rgba(10, 15, 29, 0.96);
+            border: 1px solid rgba(99, 102, 241, 0.45);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(99, 102, 241, 0.2);
+            padding: 18px 20px;
+            color: #f8fafc;
+        }
+        .kbd-badge {
+            display: inline-block;
+            padding: 1px 6px;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 5px;
+            background: #1e293b;
+            border: 1px solid #475569;
+            color: #fbbf24;
+            font-family: 'JetBrains Mono', ui-monospace, monospace;
+        }
+    </style>
+</head>
+<body class="relative w-screen h-screen overflow-hidden select-none">
+
+    <!-- Fullscreen 2D Physics & Ballistics Canvas -->
+    <canvas id="gameCanvas" class="absolute inset-0 w-full h-full block z-0" width="948" height="828"></canvas>
+
+    <!-- ==================== INSTRUCTIONS & ML GUIDE MODAL ==================== -->
+    <div id="instructionsModal" class="modal-backdrop">
+        <div class="modal-card">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800" style="padding-bottom: 10px; margin-bottom: 12px;">
+                <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-full bg-indigo-500/25 border border-indigo-400/50 text-indigo-300 font-extrabold text-xs flex items-center justify-center mono">i</span>
+                    <div>
+                        <h2 class="text-sm sm:text-lg font-extrabold text-white leading-tight">How to Play &amp; How ML Score Prediction Works</h2>
+                        <p class="text-[10px] text-slate-400">2D Ballistics Archery &amp; Live Multi-Linear Regression Engine</p>
+                    </div>
+                </div>
+                <button id="btnCloseInfoModalTop" type="button" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold border border-slate-700" title="Close Instructions">✕</button>
+            </div>
+
+            <!-- Section 1: About the Game & Controls -->
+            <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 mb-1.5" style="margin-bottom: 10px;">
+                <div class="text-xs font-extrabold uppercase tracking-wider text-amber-400 mb-1">🎯 1. About the Game &amp; Controls</div>
+                <p class="text-xs text-slate-300 leading-tight" style="line-height: 1.45;">
+                    Aim and shoot arrows across a dynamic wind field to hit the bullseye (up to <strong>10.0 pts</strong>). Choose from <strong>4 Bow Classes</strong> in the top bar: lighter bows like the <span class="text-emerald-400 font-semibold">Olympic Recurve</span> (Cap: 75) have ultra-tight accuracy, while heavy bows like the <span class="text-rose-400 font-semibold">Dragon Greatbow</span> (Cap: 200) shoot much farther but have wider aim wobble.
+                </p>
+                <div class="grid grid-cols-2 gap-1.5 mt-1.5 text-[11px] text-slate-300" style="margin-top: 8px;">
+                    <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/80">
+                        <span class="text-emerald-300 font-bold block text-[10px] uppercase">Change Launch Angle</span>
+                        Press <span class="kbd-badge">↑</span> / <span class="kbd-badge">↓</span> or <span class="kbd-badge">W</span> / <span class="kbd-badge">S</span>, drag on the canvas, or use the Angle slider.
+                    </div>
+                    <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/80">
+                        <span class="text-amber-300 font-bold block text-[10px] uppercase">Adjust Draw Power</span>
+                        Press <span class="kbd-badge">+</span> / <span class="kbd-badge">-</span> keys, drag back on screen, or slide the Power bar.
+                    </div>
+                    <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/80">
+                        <span class="text-sky-300 font-bold block text-[10px] uppercase">Move Archer &amp; Range</span>
+                        Press <span class="kbd-badge">←</span> / <span class="kbd-badge">→</span> or <span class="kbd-badge">A</span> / <span class="kbd-badge">D</span>, or drag the bottom-left <strong>WALK</strong> joystick.
+                    </div>
+                    <div class="bg-slate-950/80 p-2 rounded-lg border border-slate-800/80">
+                        <span class="text-rose-300 font-bold block text-[10px] uppercase">Release Arrow</span>
+                        Press <span class="kbd-badge">Spacebar</span>, click <strong>SHOOT</strong>, or release your mouse/touch drag.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: How Multi-Linear Regression Predicts After 4 Tries -->
+            <div class="bg-slate-900/90 border border-indigo-500/40 rounded-xl p-2.5" style="margin-bottom: 12px;">
+                <div class="text-xs font-extrabold uppercase tracking-wider text-indigo-300 mb-1">🧠 2. How the Game Predicts Your Score After 4 Tries</div>
+                <p class="text-xs text-slate-300" style="line-height: 1.48; margin-bottom: 6px;">
+                    Each bow has its own built-in <strong>Multi-Linear Regression (MLR)</strong> machine learning model that learns from your shots in real time:
+                </p>
+                <div class="text-[11px] text-slate-300" style="line-height: 1.5;">
+                    <div style="margin-bottom: 4px;">
+                        • <strong class="text-amber-300">Step 1 — Calibration (First 4 Shots):</strong> When you select a bow, its status shows <span class="mono text-[10px] px-1 rounded bg-amber-500/20 text-amber-300">0/4 Shots</span>. As you fire 4 times with that bow, the game records your <strong>Draw Power</strong>, <strong>Launch Angle</strong>, <strong>Wind Speed</strong>, and the resulting <strong>Actual Score ($y$)</strong>.
+                    </div>
+                    <div style="margin-bottom: 4px;">
+                        • <strong class="text-emerald-300">Step 2 — Live ML Prediction (Shot 5 Onward):</strong> Right after your 4th shot, the model solves for the optimal weights ($\beta_0, \beta_1, \beta_2, \beta_3$) using physics-informed features:
+                        <div class="mono text-[10px] text-indigo-200 bg-slate-950/90 px-2 py-1 rounded border border-slate-800 my-1 text-center">
+                            Predicted Score ($\hat{y}$) = β₀ + β₁·(Ballistic Expectation) + β₂·(Angle/Loft) + β₃·(Wind Drift)
+                        </div>
+                    </div>
+                    <div>
+                        • <strong class="text-sky-300">Step 3 — Locked Prediction Comparison:</strong> As you aim your 5th+ shot, watch the live <span class="text-indigo-300 font-bold">ML Predict ($\hat{y}$)</span> score update in the top-right bar. When you shoot, the game <strong>locks</strong> that predicted score on screen until you angle your next shot, so you can easily compare the <strong>Predicted Score ($\hat{y}$)</strong> against your <strong>Actual Score ($y$)</strong>!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-between gap-2">
+                <span class="text-[10px] text-slate-400">Tip: Click the <strong class="text-indigo-300">"i"</strong> button in the top-left bar anytime to reopen this window.</span>
+                <button id="btnCloseInfoModalBottom" type="button" class="px-3.5 py-1.5 rounded-xl font-extrabold text-xs text-slate-950 bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-300 hover:to-orange-400 active:scale-95 transition shadow-md">
+                    GOT IT — PLAY NOW
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portrait Orientation Prompt Banner (Non-blocking, dismissible) -->
+    <div id="portraitNotice" class="hidden fixed top-14 left-1/2 -translate-x-1/2 z-50 glass-hud px-3.5 py-2 rounded-xl border border-amber-500/40 items-center gap-2.5 text-xs text-amber-200 shadow-2xl max-w-[92vw]">
+        <svg class="w-5 h-5 text-amber-400 shrink-0 animate-spin" style="animation-duration: 4s;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        <span>Rotate phone to <strong>Landscape</strong> for optimal wide-range archery view.</span>
+        <button onclick="document.getElementById('portraitNotice').style.display='none'" class="ml-1 px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px]">OK</button>
+    </div>
+
+    <!-- ==================== TOP HUD BAR (COMPACT & UNOBSTRUCTED) ==================== -->
+    <div class="fixed top-1.5 left-2 right-2 z-20 flex flex-col gap-1 pointer-events-none">
+
+        <!-- Row 1: Actions + Prominent Scoreboard + Clear/ML Toggle -->
+        <div class="flex flex-wrap items-center justify-between gap-1.5 w-full pointer-events-none">
+
+            <!-- Left Group: BG Theme, Sound, Reset, Download & Wind -->
+            <div class="flex flex-wrap items-center gap-1 sm:gap-1.5 pointer-events-auto">
+                <div class="glass-hud compact-top-bar px-2 py-1 rounded-xl flex items-center gap-1.5">
+                    <!-- Instructions ("i") Button -->
+                    <button id="btnInfoModal" type="button" class="px-2 py-1 rounded-lg bg-indigo-500/25 hover:bg-indigo-500/40 text-indigo-200 border border-indigo-400/50 text-[10px] font-extrabold tracking-wide transition flex items-center gap-1 shadow-sm" title="Game Instructions &amp; How ML Prediction Works">
+                        <span class="w-3.5 h-3.5 rounded-full bg-indigo-400 text-slate-950 font-extrabold text-[9px] flex items-center justify-center mono">i</span>
+                        <span>INFO</span>
+                    </button>
+
+                    <!-- Background Theme Cycle Button -->
+                    <button id="btnCycleBg" type="button" class="px-2 py-1 rounded-lg bg-indigo-500/25 hover:bg-indigo-500/40 text-indigo-200 border border-indigo-400/50 text-[10px] font-bold tracking-wide transition flex items-center gap-1 shadow-sm" title="Switch Background Theme">
+                        <span>🎨</span>
+                        <span id="lblBgThemeName">Alpine Day</span>
+                    </button>
+
+                    <!-- Sound Toggle -->
+                    <button id="btnSoundToggle" class="p-1 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-amber-400 border border-slate-700/80 transition" title="Toggle Audio">
+                        <svg id="iconSoundOn" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Reset Game Button -->
+                    <button id="btnResetGame" type="button" class="px-1.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/35 text-rose-300 border border-rose-500/40 text-[10px] font-bold transition flex items-center gap-1" title="Reset Game &amp; ML Models">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        <span class="hidden md:inline">RESET</span>
+                    </button>
+
+                    <!-- Clean Standalone HTML Download Button -->
+                    <button id="btnDownloadHTML" type="button" class="px-1.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/35 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold transition flex items-center gap-1" title="Download Standalone HTML Game">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"></path>
+                        </svg>
+                        <span class="hidden lg:inline">HTML</span>
+                    </button>
+                </div>
+
+                <!-- Gentle Wind Pill -->
+                <div class="glass-hud compact-top-bar px-2 py-1 rounded-xl flex items-center gap-1.5">
+                    <div class="relative w-5 h-5 rounded-full bg-slate-900/90 border border-sky-500/30 flex items-center justify-center">
+                        <svg id="windCompassArrow" class="w-3 h-3 text-sky-400 transition-transform duration-100" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="transform: rotate(-5.2deg);">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"></path>
+                        </svg>
+                    </div>
+                    <div class="leading-none">
+                        <span class="text-[8px] uppercase tracking-wider text-slate-400 block">Wind</span>
+                        <span id="hudWindReadout" class="mono text-[10px] sm:text-xs font-bold text-sky-300">+2.9 m/s Tail</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Group: Prominent Easy-to-See Scoreboard -->
+            <div class="glass-hud compact-top-bar px-3 py-1 rounded-2xl border-2 border-amber-500/40 shadow-lg shadow-amber-500/10 flex items-center gap-2.5 sm:gap-4 pointer-events-auto">
+                <!-- Total Score -->
+                <div class="text-center">
+                    <div class="text-[8px] uppercase tracking-widest text-amber-300/90 font-bold">Total Score</div>
+                    <div id="statTotalScore" class="mono text-sm sm:text-lg font-extrabold text-amber-400 leading-tight">40.0</div>
+                </div>
+                <div class="h-6 w-px bg-slate-700/80"></div>
+                <!-- Last Shot Badge -->
+                <div class="text-center min-w-[78px]">
+                    <div class="text-[8px] uppercase tracking-widest text-slate-400 font-bold">Last Shot</div>
+                    <div id="hudLastShotBadge" class="mono text-xs sm:text-sm font-extrabold text-emerald-400 leading-tight" style="color: rgb(52, 211, 153);">+7.3 PTS</div>
+                </div>
+                <div class="h-6 w-px bg-slate-700/80 hidden sm:block"></div>
+                <!-- Total Shots & Range -->
+                <div class="text-center hidden sm:block">
+                    <div class="text-[8px] uppercase tracking-widest text-slate-400 font-bold">Shots / Dist</div>
+                    <div class="mono text-xs font-bold text-white leading-tight">
+                        <span id="statArrows">5</span> <span class="text-slate-500">|</span> <span id="hudRangeDist" class="text-emerald-400">95m</span>
+                    </div>
+                </div>
+                <div class="h-6 w-px bg-slate-700/80"></div>
+                <!-- Prominent Clear Arrows Button with Auto-Clear 10 Counter -->
+                <button id="btnClearArrows" type="button" class="px-2.5 py-1 rounded-xl font-extrabold text-[10px] sm:text-xs text-slate-950 bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 active:scale-95 transition shadow-md shadow-cyan-500/30 flex items-center gap-1" title="Clear Arrows (Auto-clears every 10 shots)">
+                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1 1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                    <span>CLEAR</span>
+                    <span id="badgeArrowCount" class="mono px-1 py-0.2 rounded bg-slate-950/80 text-cyan-300 text-[9px]">5/10</span>
+                </button>
+            </div>
+
+            <!-- Right Group: Compact ML Summary Pill + Toggle Drawer Button -->
+            <div class="flex items-center gap-1.5 pointer-events-auto">
+                <button id="btnToggleMLDrawer" type="button" class="glass-hud compact-top-bar px-2.5 py-1 rounded-xl border border-indigo-400/50 hover:border-indigo-400 flex items-center gap-2 transition shadow-md">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                    <div class="text-left leading-tight">
+                        <div class="text-[8px] uppercase tracking-wider text-indigo-300 font-bold flex items-center gap-1">
+                            <span>ML Predict ($\hat{y}$)</span>
+                            <span id="mlMiniStatus" class="mono text-[8px] px-1 rounded bg-emerald-500/25 text-emerald-300">READY</span>
+                        </div>
+                        <div class="mono text-xs font-extrabold text-white">
+                            Pred: <span id="mlMiniPred" class="text-indigo-300">10.0</span>
+                            <span class="text-slate-500">|</span>
+                            Act: <span id="mlMiniActual" class="text-amber-400">7.3</span>
+                        </div>
+                    </div>
+                    <span class="text-[10px] text-indigo-300 font-bold ml-0.5">📊</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Row 2: 4 Bow Variants Strip (Compact & Always Accessible) -->
+        <div class="flex items-center justify-between gap-2 pointer-events-none">
+            <div id="bowSelectorStrip" class="flex items-center gap-1 overflow-x-auto max-w-full py-0.5 pointer-events-auto"></div>
+        </div>
+
+        <!-- Collapsible / Floating Multi-Linear Regression Telemetry Drawer -->
+        <div id="mlTelemetryDrawer" class="glass-hud p-2.5 rounded-xl border border-indigo-500/40 pointer-events-auto w-full sm:w-[320px] self-end shadow-2xl">
+            <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-300">Multi-Linear Regression</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <span id="mlStatusBadge" class="text-[9px] mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-semibold">ML ACTIVE (n=5)</span>
+                    <button id="btnCloseMLDrawer" type="button" class="px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-bold">✕</button>
+                </div>
+            </div>
+
+            <!-- Main Predicted Next Shot Score Display -->
+            <div class="mt-1 flex items-baseline justify-between gap-3 border-t border-slate-800/80 pt-1">
+                <div>
+                    <div class="text-[9px] text-slate-400">Next Shot Prediction ($\hat{y}$)</div>
+                    <div id="mlFormulaHint" class="text-[9px] mono text-slate-400 truncate">Live OLS fit for <span style="color:#10b981">Recurve</span></div>
+                </div>
+                <div class="text-right">
+                    <span id="mlPredictedScore" class="mono text-lg font-extrabold text-emerald-400">10.00</span>
+                    <span class="text-[10px] mono text-slate-500">/ 10.0</span>
+                </div>
+            </div>
+
+            <!-- Live OLS Coefficients (B0, B1*Pwr, B2*Ang, B3*Wind) -->
+            <div id="mlWeightsRow" class="mt-1 pt-1 border-t border-slate-800/70 grid grid-cols-4 gap-1 text-[9px] mono text-center">
+                <div class="bg-slate-900/80 rounded px-1 py-0.5" title="Intercept / Bias Term">
+                    <span class="text-slate-500 block text-[8px]">β₀ Bias</span>
+                    <span id="mlB0" class="text-slate-200">--</span>
+                </div>
+                <div class="bg-slate-900/80 rounded px-1 py-0.5" title="Ballistic Physics & Power Weight">
+                    <span class="text-slate-500 block text-[8px]">β₁ Ballistic</span>
+                    <span id="mlB1" class="text-amber-300">--</span>
+                </div>
+                <div class="bg-slate-900/80 rounded px-1 py-0.5" title="Loft Angle & Spread Weight">
+                    <span class="text-slate-500 block text-[8px]">β₂ Angle</span>
+                    <span id="mlB2" class="text-emerald-300">--</span>
+                </div>
+                <div class="bg-slate-900/80 rounded px-1 py-0.5" title="Wind Drift Weight">
+                    <span class="text-slate-500 block text-[8px]">β₃ Wind</span>
+                    <span id="mlB3" class="text-sky-300">--</span>
+                </div>
+            </div>
+
+            <!-- Dedicated Recent Actual vs. Predicted Value Text Box -->
+            <div class="mt-1.5 pt-1.5 border-t border-slate-800/90">
+                <div class="flex items-center justify-between text-[9px] uppercase tracking-wider text-slate-400 font-bold mb-1">
+                    <span>Recent Shot: Actual vs Predicted</span>
+                    <span id="recentShotBowTag" class="mono text-[8px] px-1 rounded bg-slate-800 text-slate-300">#5 Recurve</span>
+                </div>
+                <div class="grid grid-cols-3 gap-1 text-center mono text-[10px] bg-slate-950/90 p-1 rounded-lg border border-slate-800/90">
+                    <div>
+                        <span class="text-[8px] text-slate-500 block">ACTUAL ($y$)</span>
+                        <span id="boxRecentActual" class="font-extrabold text-amber-400 text-xs">7.34</span>
+                    </div>
+                    <div class="border-x border-slate-800/80">
+                        <span class="text-[8px] text-slate-500 block">PREDICTED ($\hat{y}$)</span>
+                        <span id="boxRecentPredicted" class="font-extrabold text-indigo-300 text-xs">10.00</span>
+                    </div>
+                    <div>
+                        <span class="text-[8px] text-slate-500 block">ERROR ($|y-\hat{y}|$)</span>
+                        <span id="boxRecentError" class="font-extrabold text-emerald-400 text-xs">±2.66</span>
+                    </div>
+                </div>
+                <input id="recentLogTextBox" type="text" readonly="" value="Fire 4 shots with a bow to compare Actual vs ML Predicted score." class="mt-1 w-full bg-slate-900/95 text-slate-300 mono text-[9px] px-2 py-1 rounded border border-slate-800 focus:outline-none select-all" title="Recent Actual vs Predicted Shot Log">
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== BOTTOM SLEEK CONTROL DECK (MOBILE LANDSCAPE FRIENDLY) ==================== -->
+    <div class="fixed bottom-1.5 left-2 right-2 z-20 flex flex-row items-end justify-between gap-2 pointer-events-none">
+
+        <!-- Bottom-Left: Tactile On-Screen Virtual Joystick for Character Movement -->
+        <div class="glass-hud compact-bottom-bar p-2 rounded-2xl flex items-center gap-2.5 pointer-events-auto shrink-0">
+            <!-- Analog Joystick Pad -->
+            <div id="joystickZone" class="joystick-pad-mobile relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-slate-900/95 border-2 border-slate-700/80 shadow-inner flex items-center justify-center touch-none cursor-grab active:cursor-grabbing">
+                <div class="absolute inset-1.5 rounded-full border border-dashed border-slate-700/60 pointer-events-none"></div>
+                <span class="absolute left-1 text-[8px] font-bold text-slate-500 pointer-events-none">◀</span>
+                <span class="absolute right-1 text-[8px] font-bold text-slate-500 pointer-events-none">▶</span>
+                <span class="absolute top-0.5 text-[7px] font-bold text-slate-600 pointer-events-none">WALK</span>
+
+                <!-- Draggable Thumb Knob -->
+                <div id="joystickKnob" class="joystick-knob-mobile w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-amber-400 to-orange-600 border-2 border-white/80 shadow-lg shadow-amber-500/40 pointer-events-none transition-transform duration-75"></div>
+            </div>
+
+            <!-- Character Position & Target Range Controls -->
+            <div class="flex flex-col justify-between text-xs pr-0.5">
+                <div class="leading-tight">
+                    <div class="text-[8px] uppercase tracking-wider text-slate-400 font-bold">Archer / Target</div>
+                    <div class="mono text-[10px] sm:text-xs font-bold text-white flex items-center gap-1">
+                        <span id="lblArcherPos">X:0m</span>
+                        <span class="text-slate-600">|</span>
+                        <span id="lblNetDistance" class="text-emerald-400">95m</span>
+                    </div>
+                </div>
+
+                <!-- Target Anchor Presets -->
+                <div class="mt-1 flex items-center gap-1">
+                    <button type="button" data-dist="55" class="target-preset-btn px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[9px] mono text-slate-300 border border-slate-700">55m</button>
+                    <button type="button" data-dist="95" class="target-preset-btn px-1.5 py-0.5 rounded bg-emerald-500/20 text-[9px] mono text-emerald-300 border border-emerald-500/40">95m</button>
+                    <button type="button" data-dist="145" class="target-preset-btn px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[9px] mono text-slate-300 border border-slate-700">145m</button>
+                    <button type="button" data-dist="200" class="target-preset-btn px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[9px] mono text-slate-300 border border-slate-700">200m</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom-Right: Custom High-Craft Tactical Sliders (Power & Angle) + Shoot Button -->
+        <div class="glass-hud compact-bottom-bar p-2 rounded-2xl flex-1 max-w-2xl pointer-events-auto flex flex-row items-center gap-2 sm:gap-3">
+
+            <!-- Sliders Grid (Always 2 columns side-by-side so it stays ultra-low profile on mobile landscape) -->
+            <div class="flex-1 grid grid-cols-2 gap-1.5 sm:gap-2.5">
+
+                <!-- 1. Scalable Draw Power Slider (Clamped by Active Bow Cap) -->
+                <div class="compact-slider-box bg-slate-900/85 px-2.5 py-1.5 rounded-xl border border-slate-800/90">
+                    <div class="flex items-center justify-between mb-0.5">
+                        <span class="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-slate-300">Power</span>
+                        <div class="flex items-center gap-1 mono">
+                            <button type="button" id="btnPwrDec" class="w-4 h-4 sm:w-5 sm:h-5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs flex items-center justify-center border border-slate-700">-</button>
+                            <span id="lblPowerVal" class="text-[11px] sm:text-xs font-extrabold text-amber-400 min-w-[22px] text-center">25</span>
+                            <span class="text-[9px] text-slate-500">/</span>
+                            <span id="lblPowerMax" class="text-[9px] text-slate-400">75</span>
+                            <button type="button" id="btnPwrInc" class="w-4 h-4 sm:w-5 sm:h-5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs flex items-center justify-center border border-slate-700">+</button>
+                        </div>
+                    </div>
+
+                    <div class="tactical-slider-wrap">
+                        <div class="tactical-track-bg">
+                            <div id="trackBowCap" class="tactical-track-cap" style="width: 37.5%;"></div>
+                            <div id="trackPowerFill" class="tactical-track-fill" style="width: 16.6667%;"></div>
+                        </div>
+                        <input type="range" id="sliderPower" min="15" max="75" step="1" value="25" class="tactical-range">
+                    </div>
+
+                    <div class="hidden sm:flex justify-between text-[8px] mono text-slate-400 mt-0.5">
+                        <span>Rest: 25</span>
+                        <span id="lblBowCapHint" class="text-amber-300/90">Recurve Cap: 75</span>
+                    </div>
+                </div>
+
+                <!-- 2. Launch Angle Slider (-25° Ground Default to +75° Loft) -->
+                <div class="compact-slider-box bg-slate-900/85 px-2.5 py-1.5 rounded-xl border border-slate-800/90">
+                    <div class="flex items-center justify-between mb-0.5">
+                        <span class="text-[9px] sm:text-[10px] uppercase tracking-wider font-bold text-slate-300">Angle</span>
+                        <div class="flex items-center gap-1 mono">
+                            <button type="button" id="btnAngDec" class="w-4 h-4 sm:w-5 sm:h-5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs flex items-center justify-center border border-slate-700">-</button>
+                            <span id="lblAngleVal" class="text-[11px] sm:text-xs font-extrabold text-emerald-400 min-w-[36px] text-center">-18.0°</span>
+                            <button type="button" id="btnAngInc" class="w-4 h-4 sm:w-5 sm:h-5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs flex items-center justify-center border border-slate-700">+</button>
+                        </div>
+                    </div>
+
+                    <div class="tactical-slider-wrap">
+                        <div class="tactical-track-bg">
+                            <div id="trackAngleFill" class="tactical-track-fill" style="background: linear-gradient(90deg, rgb(16, 185, 129), rgb(5, 150, 105)); box-shadow: rgba(16, 185, 129, 0.6) 0px 0px 12px; width: 7%;"></div>
+                        </div>
+                        <input type="range" id="sliderAngle" min="-25" max="75" step="0.5" value="-18" class="tactical-range">
+                    </div>
+
+                    <div class="hidden sm:flex justify-between items-center text-[8px] mono text-slate-400 mt-0.5">
+                        <span>-18° Ground</span>
+                        <label class="flex items-center gap-1 cursor-pointer text-slate-300">
+                            <input type="checkbox" id="chkShowCone" checked="" class="rounded bg-slate-800 border-slate-600 text-amber-500 focus:ring-0 w-2.5 h-2.5">
+                            <span>Cone</span>
+                        </label>
+                        <span>+75°</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Release Arrow Column -->
+            <div class="flex flex-col items-center gap-1 shrink-0">
+                <button id="btnFireArrow" type="button" class="py-2 sm:py-2.5 px-3.5 sm:px-5 rounded-xl font-extrabold text-xs sm:text-sm text-slate-950 bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 hover:from-amber-300 hover:to-orange-400 active:scale-95 transition shadow-lg shadow-amber-500/30 flex items-center justify-center gap-1">
+                    <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>SHOOT</span>
+                </button>
+                <span id="lastShotDeltaBadge" class="text-[8px] mono text-slate-400 truncate max-w-[90px]">Shot: 20° P:75</span>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        /**************************************************************************
+         * 2D ARCHERY + MULTI-LINEAR REGRESSION ENGINE
+         * Features:
+         * 1. Per-Bow Ridge-Regularized Multi-Linear Regression (4+ shots trigger)
+         * 2. 4 On-Screen Bow Classes with Inverse Accuracy vs Max Power Cap
+         * 3. Auto-Reset to Ground-Facing Stance (-18°, Pwr 25) after every shot
+         * 4. Auto-Clear Arrows every 10 shots + High-Contrast Clear Button
+         * 5. 4 Procedural Background Themes + Scaled-Up Archer & Target
+         **************************************************************************/
+
+        const DEFAULT_REST_ANGLE = -18.0; // Facing ground default
+        const DEFAULT_REST_POWER = 25;    // Low resting draw power
+
+        // --- 0. FOUR PROCEDURAL BACKGROUND THEMES ---
+        const BG_THEMES = [
+            {
+                id: 'cyber',
+                name: 'Cyber Night',
+                skyTop: '#050811',
+                skyMid: '#0f172a',
+                skyBot: '#1e293b',
+                sunColor: 'rgba(245, 158, 11, 0.18)',
+                mtnBack: '#0b1324',
+                mtnFront: '#131f36',
+                groundTop: '#0d261c',
+                groundMid: '#071710',
+                groundBot: '#030806',
+                gridLine: 'rgba(16, 185, 129, 0.45)',
+                grassHueBase: 135
+            },
+            {
+                id: 'sunset',
+                name: 'Sunset Valley',
+                skyTop: '#1e1028',
+                skyMid: '#7c2d12',
+                skyBot: '#f59e0b',
+                sunColor: 'rgba(251, 191, 36, 0.45)',
+                mtnBack: '#2e1025',
+                mtnFront: '#451a1c',
+                groundTop: '#291d12',
+                groundMid: '#1c120b',
+                groundBot: '#0f0804',
+                gridLine: 'rgba(251, 191, 36, 0.45)',
+                grassHueBase: 42
+            },
+            {
+                id: 'alpine',
+                name: 'Alpine Day',
+                skyTop: '#0284c7',
+                skyMid: '#38bdf8',
+                skyBot: '#e0f2fe',
+                sunColor: 'rgba(255, 255, 255, 0.55)',
+                mtnBack: '#475569',
+                mtnFront: '#334155',
+                groundTop: '#15803d',
+                groundMid: '#166534',
+                groundBot: '#052e16',
+                gridLine: 'rgba(134, 239, 172, 0.55)',
+                grassHueBase: 115
+            },
+            {
+                id: 'sakura',
+                name: 'Sakura Dojo',
+                skyTop: '#1e1b4b',
+                skyMid: '#581c87',
+                skyBot: '#f472b6',
+                sunColor: 'rgba(244, 114, 182, 0.42)',
+                mtnBack: '#2e1065',
+                mtnFront: '#3b0764',
+                groundTop: '#3b1c32',
+                groundMid: '#241023',
+                groundBot: '#130714',
+                gridLine: 'rgba(244, 114, 182, 0.5)',
+                grassHueBase: 325
+            }
+        ];
+
+        // --- 1. FOUR BOW CLASSES (Inverse Accuracy vs Power Limit) ---
+        const BOW_TYPES = [
+            {
+                id: 'recurve',
+                name: 'Recurve',
+                fullName: 'Olympic Recurve',
+                color: '#10b981',      // Emerald
+                woodColor: '#34d399',
+                maxPower: 75,          // Low Power Cap
+                angleVariance: 0.8,    // ±0.8 deg base spread (Highest Accuracy)
+                powerVariance: 0.015,  // ±1.5% base power spread
+                windSensitivity: 0.60,
+                limbCurve: 1.0
+            },
+            {
+                id: 'compound',
+                name: 'Compound',
+                fullName: 'Pulley Compound',
+                color: '#3b82f6',      // Blue
+                woodColor: '#60a5fa',
+                maxPower: 110,         // Medium Power Cap
+                angleVariance: 2.2,    // ±2.2 deg base spread
+                powerVariance: 0.04,   // ±4.0% base power spread
+                windSensitivity: 0.85,
+                limbCurve: 0.75
+            },
+            {
+                id: 'longbow',
+                name: 'War Longbow',
+                fullName: 'Heavy Yew Longbow',
+                color: '#f59e0b',      // Amber
+                woodColor: '#fbbf24',
+                maxPower: 150,         // High Power Cap
+                angleVariance: 4.5,    // ±4.5 deg base spread
+                powerVariance: 0.08,   // ±8.0% base power spread
+                windSensitivity: 1.20,
+                limbCurve: 1.25
+            },
+            {
+                id: 'greatbow',
+                name: 'Greatbow',
+                fullName: 'Dragon Siege Greatbow',
+                color: '#ef4444',      // Crimson
+                woodColor: '#f87171',
+                maxPower: 200,         // Maximum Power Cap
+                angleVariance: 8.0,    // ±8.0 deg base spread (Chaotic)
+                powerVariance: 0.14,   // ±14.0% base power spread
+                windSensitivity: 1.60,
+                limbCurve: 1.45
+            }
+        ];
+
+        // --- 2. PER-BOW MULTI-LINEAR REGRESSION ENGINE (Physics-Informed Basis + Bayesian Ridge OLS) ---
+        // Engineered Feature Vector x = [1, x1_BallisticExpectation, x2_AngleSpreadNorm, x3_WindDriftNorm]
+        // Prior Beta_prior = [0, 1.0, 0, 0] ensures zero collinearity blowups and 0.0 prediction when aiming at ground (-18°)
+        const bowDatasets = {
+            recurve: [],
+            compound: [],
+            longbow: [],
+            greatbow: []
+        };
+
+        const bowModels = {
+            recurve: null,
+            compound: null,
+            longbow: null,
+            greatbow: null
+        };
+
+        /**
+         * Simulates a single deterministic arrow ray to compute exact ballistic score at (archerX, targetWorldX)
+         */
+        function simulateDeterministicScore(bow, power, angleDeg, windX, windY = 0) {
+            if (angleDeg <= -12) return 0.0; // Aiming directly into the ground right in front of archer
+
+            const rad = (angleDeg * Math.PI) / 180;
+            const v0 = powerToVelocity(power);
+            let x = state.archerX;
+            let y = state.archerY;
+            let vx = Math.cos(rad) * v0;
+            let vy = Math.sin(rad) * v0;
+
+            const targetX = state.targetWorldX;
+            const targetCenterY = state.targetRadius + 0.45;
+            const dt = 0.025;
+
+            for (let step = 0; step < 320; step++) {
+                const prevX = x;
+                const prevY = y;
+
+                const relVx = vx - windX;
+                const relVy = vy - windY;
+                const relSpeed = Math.hypot(relVx, relVy);
+
+                const ax = -DRAG_COEFF * relSpeed * relVx;
+                const ay = -GRAVITY - DRAG_COEFF * relSpeed * relVy;
+
+                vx += ax * dt;
+                vy += ay * dt;
+                x += vx * dt;
+                y += vy * dt;
+
+                // Check Target Plane Intersection
+                if (prevX <= targetX && x >= targetX) {
+                    const frac = (targetX - prevX) / Math.max(0.0001, x - prevX);
+                    const hitY = prevY + frac * (y - prevY);
+                    const distFromCenter = Math.abs(hitY - targetCenterY);
+
+                    if (distFromCenter <= state.targetRadius) {
+                        const normDist = distFromCenter / state.targetRadius;
+                        return clamp(10.0 - normDist * 8.5, 1.5, 10.0);
+                    }
+                    // Passed through target X plane above or below target board
+                    const verticalMiss = Math.max(0, distFromCenter - state.targetRadius);
+                    return clamp(1.4 * Math.exp(-verticalMiss / 8.0), 0.0, 1.4);
+                }
+
+                // Check Ground Impact before reaching target
+                if (y <= 0) {
+                    const frac = (0 - prevY) / Math.min(-0.0001, y - prevY);
+                    const hitX = prevX + clamp(frac, 0, 1) * (x - prevX);
+                    const missDist = Math.abs(hitX - targetX);
+                    return clamp(1.4 * Math.exp(-missDist / 18.0), 0.0, 1.4);
+                }
+
+                if (x > targetX + 40) break;
+            }
+            return 0.0;
+        }
+
+        /**
+         * Computes the Gauss-Hermite 5-point expected ballistic score accounting for bow spread
+         * plus normalized basis features for Multi-Linear Regression.
+         */
+        function extractEngineeredFeatures(bowId, power, angleDeg, windX) {
+            const bow = BOW_TYPES.find(b => b.id === bowId) || BOW_TYPES[0];
+            const spread = getEffectiveSpread(bow);
+            const sigmaAng = spread.totalAngleSpreadDeg * 0.5;
+            const sigmaPwr = power * (spread.totalPowerSpreadPct * 0.5);
+
+            // 5-Point Sigma-Point Quadrature over Bow Variance (Captures accuracy drop of high-variance bows)
+            const sCenter = simulateDeterministicScore(bow, power, angleDeg, windX, state.windY);
+            const sAngHi  = simulateDeterministicScore(bow, power, angleDeg + sigmaAng, windX, state.windY);
+            const sAngLo  = simulateDeterministicScore(bow, power, angleDeg - sigmaAng, windX, state.windY);
+            const sPwrHi  = simulateDeterministicScore(bow, clamp(power + sigmaPwr, 10, bow.maxPower * 1.05), angleDeg, windX, state.windY);
+            const sPwrLo  = simulateDeterministicScore(bow, clamp(power - sigmaPwr, 10, bow.maxPower * 1.05), angleDeg, windX, state.windY);
+
+            const expectedBallisticScore = 0.40 * sCenter + 0.20 * sAngHi + 0.20 * sAngLo + 0.10 * sPwrHi + 0.10 * sPwrLo;
+
+            // Active indicator so ground shots (-18°) don't get polluted by linear intercept drift
+            const activeGate = clamp((angleDeg - (-12.0)) / 8.0, 0.0, 1.0);
+
+            // Basis features:
+            // x0: Active Bias Gate (0 when resting at ground, 1 when aiming)
+            // x1: Physics-informed Expected Score (0.0 to 10.0)
+            // x2: Centered Power-Angle interaction / loft term
+            // x3: Wind drift interaction term
+            const x0 = activeGate;
+            const x1 = expectedBallisticScore;
+            const x2 = activeGate * ((angleDeg - 20.0) / 45.0) * (power / bow.maxPower);
+            const x3 = activeGate * (windX / 4.0);
+
+            return [x0, x1, x2, x3];
+        }
+
+        /**
+         * Solves a 4x4 linear system A * x = b using Gaussian Elimination with Partial Pivoting.
+         */
+        function solve4x4(A, b) {
+            const n = 4;
+            const M = A.map((row, i) => [...row, b[i]]);
+
+            for (let col = 0; col < n; col++) {
+                let pivotRow = col;
+                for (let row = col + 1; row < n; row++) {
+                    if (Math.abs(M[row][col]) > Math.abs(M[pivotRow][col])) {
+                        pivotRow = row;
+                    }
+                }
+                [M[col], M[pivotRow]] = [M[pivotRow], M[col]];
+
+                const pivotVal = M[col][col];
+                if (Math.abs(pivotVal) < 1e-10) continue;
+
+                for (let j = col; j <= n; j++) {
+                    M[col][j] /= pivotVal;
+                }
+
+                for (let row = 0; row < n; row++) {
+                    if (row !== col) {
+                        const factor = M[row][col];
+                        for (let j = col; j <= n; j++) {
+                            M[row][j] -= factor * M[col][j];
+                        }
+                    }
+                }
+            }
+            return M.map(row => row[n]);
+        }
+
+        /**
+         * Trains the Multi-Linear Regression model for a specific bow once >= 4 shots exist.
+         * Uses Bayesian Ridge Regression anchored at Beta_prior = [0.0, 1.0, 0.0, 0.0]:
+         * (X^T X + Lambda) * Beta = X^T Y + Lambda * Beta_prior
+         * This guarantees high accuracy even when all 4 calibration shots were fired at the same angle/power!
+         */
+        function fitBowRegressionModel(bowId) {
+            const samples = bowDatasets[bowId];
+            if (!samples || samples.length < 4) {
+                bowModels[bowId] = null;
+                return null;
+            }
+
+            const XtX = [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ];
+            const XtY = [0, 0, 0, 0];
+
+            // Exponential recency weighting so recent shots at current range carry higher weight
+            const N = samples.length;
+            for (let idx = 0; idx < N; idx++) {
+                const s = samples[idx];
+                const recencyWeight = Math.pow(0.92, N - 1 - idx);
+                const x = s.features || extractEngineeredFeatures(bowId, s.power, s.angle, s.windSpeed);
+                const y = s.score;
+
+                for (let r = 0; r < 4; r++) {
+                    XtY[r] += recencyWeight * x[r] * y;
+                    for (let c = 0; c < 4; c++) {
+                        XtX[r][c] += recencyWeight * x[r] * x[c];
+                    }
+                }
+            }
+
+            // Bayesian Ridge Prior towards physical expectation: Beta_prior = [0, 1.0, 0, 0]
+            const betaPrior = [0.0, 1.0, 0.0, 0.0];
+            const lambdas = [1.8, 1.2, 2.5, 2.5];
+
+            for (let j = 0; j < 4; j++) {
+                XtX[j][j] += lambdas[j];
+                XtY[j] += lambdas[j] * betaPrior[j];
+            }
+
+            const beta = solve4x4(XtX, XtY);
+            bowModels[bowId] = {
+                b0: beta[0],
+                b1: beta[1],
+                b2: beta[2],
+                b3: beta[3],
+                count: samples.length
+            };
+            return bowModels[bowId];
+        }
+
+        function predictNextShotScore(bowId, power, angle, windSpeed) {
+            const model = bowModels[bowId];
+            if (!model) return null;
+
+            // Ground-facing stance always scores 0.00
+            if (angle <= -12.0) return 0.0;
+
+            const x = extractEngineeredFeatures(bowId, power, angle, windSpeed);
+            const rawPred = model.b0 * x[0] + model.b1 * x[1] + model.b2 * x[2] + model.b3 * x[3];
+
+            // Blend 80% learned Bayesian MLR with 20% physical expectation for rock-solid stability
+            const blended = 0.80 * rawPred + 0.20 * x[1];
+            return clamp(blended, 0.0, 10.0);
+        }
+
+        // --- 3. GAME & PHYSICS STATE ---
+        const state = {
+            selectedBowIndex: 0,
+            bgThemeIndex: 0,
+            aimAngleDeg: DEFAULT_REST_ANGLE,
+            drawPower: DEFAULT_REST_POWER,
+
+            // Character & Target World Coordinates (in meters)
+            archerX: 0.0,          // Movable via on-screen joystick (-35m to +120m)
+            archerY: 2.65,         // Scaled-up shoulder height above ground (1.6x taller human)
+            archerVx: 0.0,         // Current horizontal walk speed
+            walkCycle: 0.0,        // Leg animation phase
+            targetWorldX: 95.0,    // Target anchor position
+            targetRadius: 5.6,     // Scaled-up target radius in meters (1.6x bigger target)
+
+            // Gentle, Low-Variation Autonomous Wind System
+            windX: 1.2,            // Current horizontal wind (m/s, gentle -3.5 to +3.5 range)
+            windY: 0.0,            // Current vertical draft (m/s, minimal)
+            windPhase: Math.random() * 100,
+            windTargetX: 1.8,
+            windTargetY: 0.15,
+            nextWindShiftTime: 0,
+
+            showVarianceCone: true,
+            soundEnabled: true,
+
+            // Scoreboard & Auto-Clear 10 Counter
+            totalScore: 0.0,
+            arrowsFired: 0,
+            shotsSinceClear: 0,
+            recentShotsLog: [],
+
+            // Prediction Lock State (Fixes predicted value after shot until next shot is angled)
+            lockedPredictionValue: null,
+            isPredictionLocked: false,
+
+            // Canvas Slingshot Drag State
+            isDraggingBow: false,
+            dragStartX: 0,
+            dragStartY: 0,
+            dragCurrentX: 0,
+            dragCurrentY: 0,
+
+            // Virtual Joystick & Keyboard State
+            joystickInputX: 0,     // -1.0 to +1.0
+            keyLeft: false,
+            keyRight: false,
+            keyUp: false,
+            keyDown: false,
+            keyPwrInc: false,
+            keyPwrDec: false,
+
+            // Scene Entities
+            arrows: [],
+            stuckArrows: [],
+            floatingTexts: [],
+            particles: [],
+            windStreaks: [],
+            grassBlades: [],
+            clouds: []
+        };
+
+        const GRAVITY = 9.81;
+        const DRAG_COEFF = 0.0038;
+
+        // --- 4. SYNTHESIZED SOUND ENGINE ---
+        class SoundEffects {
+            constructor() {
+                this.ctx = null;
+            }
+            init() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) this.ctx = new AudioCtx();
+                }
+                if (this.ctx && this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+            playRelease(powerRatio) {
+                if (!state.soundEnabled) return;
+                this.init();
+                if (!this.ctx) return;
+
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(115 + powerRatio * 95, now);
+                osc.frequency.exponentialRampToValueAtTime(40, now + 0.22);
+
+                gain.gain.setValueAtTime(0.26, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.25);
+            }
+            playHit(score10) {
+                if (!state.soundEnabled) return;
+                this.init();
+                if (!this.ctx) return;
+
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+
+                if (score10 >= 8.5) {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(587.33, now);
+                    osc.frequency.setValueAtTime(880, now + 0.08);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.44);
+                } else if (score10 > 0) {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(185, now);
+                    osc.frequency.exponentialRampToValueAtTime(55, now + 0.15);
+                    gain.gain.setValueAtTime(0.28, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.17);
+                } else {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(75, now);
+                    osc.frequency.exponentialRampToValueAtTime(28, now + 0.1);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.12);
+                }
+            }
+        }
+        const sfx = new SoundEffects();
+
+        // --- 5. MATH & BALLISTICS UTILITIES ---
+        function randomGaussian() {
+            let u = 0, v = 0;
+            while (u === 0) u = Math.random();
+            while (v === 0) v = Math.random();
+            return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+        }
+
+        function clamp(val, min, max) {
+            return Math.max(min, Math.min(max, val));
+        }
+
+        function powerToVelocity(power) {
+            return power * 0.58;
+        }
+
+        function getNetDistance() {
+            return Math.max(20, state.targetWorldX - state.archerX);
+        }
+
+        // Effective bow + gentle air noise standard deviations (reduced air variation)
+        function getEffectiveSpread(bow) {
+            const windSpeedMag = Math.hypot(state.windX, state.windY);
+            const airAngleNoise = (windSpeedMag * 0.03) * bow.windSensitivity;
+            const airPowerNoise = (windSpeedMag * 0.0008) * bow.windSensitivity;
+
+            return {
+                totalAngleSpreadDeg: bow.angleVariance + airAngleNoise,
+                totalPowerSpreadPct: bow.powerVariance + airPowerNoise
+            };
+        }
+
+        // --- 6. UI & BOW SELECTOR RENDERING ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const bowSelectorStrip = document.getElementById('bowSelectorStrip');
+        const sliderPower = document.getElementById('sliderPower');
+        const sliderAngle = document.getElementById('sliderAngle');
+
+        function renderBowSelectorStrip() {
+            bowSelectorStrip.innerHTML = '';
+            BOW_TYPES.forEach((bow, idx) => {
+                const isSelected = idx === state.selectedBowIndex;
+                const shotsCount = bowDatasets[bow.id].length;
+                const isTrained = shotsCount >= 4;
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.style.setProperty('--bow-color', bow.color);
+                btn.className = `bow-pill glass-hud px-2.5 py-1.5 rounded-xl border border-slate-800 text-left shrink-0 flex items-center gap-2 ${isSelected ? 'active' : ' opacity-80 hover:opacity-100'}`;
+
+                btn.innerHTML = `
+                    <div class="w-2 h-7 rounded-full" style="background:${bow.color}"></div>
+                    <div class="leading-tight">
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-bold text-[11px] sm:text-xs text-white">${bow.name}</span>
+                            <span class="mono text-[9px] px-1 rounded bg-slate-800 text-amber-300">Cap:${bow.maxPower}</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 mt-0.5 text-[9px] mono">
+                            <span class="text-slate-400">±${bow.angleVariance}°</span>
+                            <span class="px-1 rounded ${isTrained ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-400'}">
+                                ${isTrained ? 'ML READY' : `${shotsCount}/4 Shots`}
+                            </span>
+                        </div>
+                    </div>
+                `;
+                btn.addEventListener('click', () => selectBow(idx));
+                bowSelectorStrip.appendChild(btn);
+            });
+        }
+
+        function selectBow(index) {
+            state.selectedBowIndex = index;
+            state.isPredictionLocked = false;
+            state.lockedPredictionValue = null;
+            const bow = BOW_TYPES[index];
+
+            sliderPower.max = bow.maxPower;
+            if (state.drawPower > bow.maxPower) {
+                state.drawPower = bow.maxPower;
+                sliderPower.value = state.drawPower;
+            }
+
+            renderBowSelectorStrip();
+            updateHUD();
+        }
+
+        function unlockPredictionForNextShot() {
+            if (state.isPredictionLocked) {
+                state.isPredictionLocked = false;
+                state.lockedPredictionValue = null;
+            }
+        }
+
+        function updateHUD() {
+            const bow = BOW_TYPES[state.selectedBowIndex];
+            const netDist = getNetDistance();
+
+            // Range & Archer Pos
+            document.getElementById('hudRangeDist').textContent = `${netDist.toFixed(0)}m`;
+            document.getElementById('lblArcherPos').textContent = `X:${state.archerX.toFixed(0)}m`;
+            document.getElementById('lblNetDistance').textContent = `${netDist.toFixed(0)}m`;
+
+            // Custom Power Slider Fill & Cap
+            document.getElementById('lblPowerVal').textContent = Math.round(state.drawPower);
+            document.getElementById('lblPowerMax').textContent = bow.maxPower;
+            const capHintEl = document.getElementById('lblBowCapHint');
+            if (capHintEl) capHintEl.textContent = `${bow.name} Cap: ${bow.maxPower}`;
+
+            // Fill percentage inside the active slider range (15 to bow.maxPower)
+            const pwrPercent = ((state.drawPower - 15) / Math.max(1, bow.maxPower - 15)) * 100;
+            document.getElementById('trackPowerFill').style.width = `${clamp(pwrPercent, 0, 100)}%`;
+            document.getElementById('trackBowCap').style.width = `${(bow.maxPower / 200) * 100}%`;
+
+            // Custom Angle Slider Fill (-25 to +75)
+            document.getElementById('lblAngleVal').textContent = `${state.aimAngleDeg.toFixed(1)}°`;
+            const angPercent = ((state.aimAngleDeg - (-25)) / 100) * 100;
+            document.getElementById('trackAngleFill').style.width = `${clamp(angPercent, 0, 100)}%`;
+
+            // Scoreboard & 10-Shot Auto-Clear Badge
+            document.getElementById('statTotalScore').textContent = state.totalScore.toFixed(1);
+            document.getElementById('statArrows').textContent = state.arrowsFired;
+            const arrowBadge = document.getElementById('badgeArrowCount');
+            if (arrowBadge) arrowBadge.textContent = `${state.shotsSinceClear}/10`;
+
+            // Update Multi-Linear Regression Predictor Panel
+            updateMLPredictorHUD();
+        }
+
+        function updateMLPredictorHUD() {
+            const bow = BOW_TYPES[state.selectedBowIndex];
+            const samples = bowDatasets[bow.id];
+            const model = bowModels[bow.id];
+
+            const badgeEl = document.getElementById('mlStatusBadge');
+            const miniStatusEl = document.getElementById('mlMiniStatus');
+            const miniPredEl = document.getElementById('mlMiniPred');
+            const hintEl = document.getElementById('mlFormulaHint');
+            const predEl = document.getElementById('mlPredictedScore');
+            const b0El = document.getElementById('mlB0');
+            const b1El = document.getElementById('mlB1');
+            const b2El = document.getElementById('mlB2');
+            const b3El = document.getElementById('mlB3');
+
+            if (samples.length < 4 || !model) {
+                badgeEl.textContent = `Calibrating: ${samples.length}/4 Shots`;
+                badgeEl.className = 'text-[9px] mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-semibold';
+                if (miniStatusEl) {
+                    miniStatusEl.textContent = `${samples.length}/4`;
+                    miniStatusEl.className = 'mono text-[8px] px-1 rounded bg-amber-500/20 text-amber-300';
+                }
+                if (miniPredEl) miniPredEl.textContent = '--';
+                hintEl.innerHTML = `Fire <strong>${4 - samples.length} more</strong> with <span style="color:${bow.color}">${bow.name}</span>`;
+                predEl.textContent = '--';
+                predEl.className = 'mono text-lg font-extrabold text-slate-500';
+                b0El.textContent = '--';
+                b1El.textContent = '--';
+                b2El.textContent = '--';
+                b3El.textContent = '--';
+            } else {
+                const isLocked = state.isPredictionLocked && state.lockedPredictionValue !== null;
+                const displayPred = isLocked
+                    ? state.lockedPredictionValue
+                    : predictNextShotScore(bow.id, state.drawPower, state.aimAngleDeg, state.windX);
+
+                badgeEl.textContent = isLocked ? `LOCKED (n=${samples.length})` : `ML ACTIVE (n=${samples.length})`;
+                badgeEl.className = isLocked
+                    ? 'text-[9px] mono px-1.5 py-0.5 rounded bg-indigo-500/25 text-indigo-200 border border-indigo-400/50 font-semibold'
+                    : 'text-[9px] mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-semibold';
+
+                if (miniStatusEl) {
+                    miniStatusEl.textContent = isLocked ? 'LOCKED' : 'READY';
+                    miniStatusEl.className = isLocked
+                        ? 'mono text-[8px] px-1 rounded bg-indigo-500/25 text-indigo-200'
+                        : 'mono text-[8px] px-1 rounded bg-emerald-500/25 text-emerald-300';
+                }
+                if (miniPredEl) miniPredEl.textContent = displayPred.toFixed(1);
+
+                hintEl.innerHTML = isLocked
+                    ? `Locked Last Shot <span class="text-indigo-300">(Angle to unlock)</span>`
+                    : `Live OLS fit for <span style="color:${bow.color}">${bow.name}</span>`;
+
+                predEl.textContent = displayPred.toFixed(2);
+                if (displayPred >= 7.5) {
+                    predEl.className = 'mono text-lg font-extrabold text-emerald-400';
+                } else if (displayPred >= 4.0) {
+                    predEl.className = 'mono text-lg font-extrabold text-amber-400';
+                } else {
+                    predEl.className = 'mono text-lg font-extrabold text-rose-400';
+                }
+
+                b0El.textContent = model.b0.toFixed(2);
+                b1El.textContent = model.b1.toFixed(3);
+                b2El.textContent = model.b2.toFixed(3);
+                b3El.textContent = model.b3.toFixed(3);
+            }
+        }
+
+        // --- 7. ENVIRONMENT INITIALIZATION ---
+        function initEnvironment() {
+            state.grassBlades = [];
+            for (let i = 0; i < 140; i++) {
+                state.grassBlades.push({
+                    normX: Math.random(),
+                    height: 7 + Math.random() * 13,
+                    phase: Math.random() * Math.PI * 2,
+                    hue: 118 + Math.random() * 24
+                });
+            }
+
+            state.clouds = [];
+            for (let i = 0; i < 6; i++) {
+                state.clouds.push({
+                    x: Math.random(),
+                    y: 0.14 + Math.random() * 0.25,
+                    scale: 0.65 + Math.random() * 0.75,
+                    speedFactor: 0.18 + Math.random() * 0.25
+                });
+            }
+
+            state.windStreaks = [];
+            for (let i = 0; i < 48; i++) {
+                state.windStreaks.push({
+                    x: Math.random(),
+                    y: 0.1 + Math.random() * 0.7,
+                    len: 24 + Math.random() * 48,
+                    alpha: 0.14 + Math.random() * 0.35,
+                    speedOffset: 0.75 + Math.random() * 0.55
+                });
+            }
+        }
+
+        // --- 8. VIEWPORT METRICS & CAMERA MAPPING ---
+        function getViewportMetrics() {
+            const w = canvas.width;
+            const h = canvas.height;
+            const groundY = h * 0.77;
+
+            // Camera keeps both archerX and targetWorldX comfortably framed inside the viewport
+            const minWorldX = Math.min(-15, state.archerX - 12);
+            const maxWorldX = Math.max(state.targetWorldX + 18, state.archerX + 55);
+            const worldSpan = Math.max(65, maxWorldX - minWorldX);
+
+            const usableScreenW = w * 0.84;
+            const ppm = usableScreenW / worldSpan;
+            const originScreenX = w * 0.08 - minWorldX * ppm;
+
+            return {
+                w,
+                h,
+                groundY,
+                originScreenX,
+                ppm,
+                minWorldX,
+                maxWorldX
+            };
+        }
+
+        function worldToScreen(wx, wy, m) {
+            return {
+                x: m.originScreenX + wx * m.ppm,
+                y: m.groundY - wy * m.ppm
+            };
+        }
+
+        // --- 9. TRAJECTORY SIMULATION ---
+        function simulateTrajectoryPoints(angleDeg, power) {
+            const rad = (angleDeg * Math.PI) / 180;
+            const v0 = powerToVelocity(power);
+            let x = state.archerX;
+            let y = state.archerY;
+            let vx = Math.cos(rad) * v0;
+            let vy = Math.sin(rad) * v0;
+
+            const pts = [{ x, y }];
+            const dt = 0.035;
+            for (let step = 0; step < 220; step++) {
+                const relVx = vx - state.windX;
+                const relVy = vy - state.windY;
+                const relSpeed = Math.hypot(relVx, relVy);
+
+                const ax = -DRAG_COEFF * relSpeed * relVx;
+                const ay = -GRAVITY - DRAG_COEFF * relSpeed * relVy;
+
+                vx += ax * dt;
+                vy += ay * dt;
+                x += vx * dt;
+                y += vy * dt;
+                pts.push({ x, y });
+
+                if (y <= 0 || x > state.targetWorldX + 35) break;
+            }
+            return pts;
+        }
+
+        // --- 10. SHOOTING, AUTO-RESET TO GROUND STANCE & ML RECORDING ---
+        function resetBowToGroundStance() {
+            state.aimAngleDeg = DEFAULT_REST_ANGLE; // -18° facing ground
+            state.drawPower = DEFAULT_REST_POWER;   // 25 resting power
+            sliderAngle.value = state.aimAngleDeg;
+            sliderPower.value = state.drawPower;
+            updateHUD();
+        }
+
+        function fireArrow() {
+            const bow = BOW_TYPES[state.selectedBowIndex];
+            const spread = getEffectiveSpread(bow);
+
+            const gAngle = clamp(randomGaussian(), -2.4, 2.4);
+            const gPower = clamp(randomGaussian(), -2.4, 2.4);
+
+            // Subtle wind influence on release so bow variance & player aim dominate
+            const windGustBias = (state.windY * 0.04 - state.windX * 0.015) * bow.windSensitivity;
+
+            const intendedAngle = state.aimAngleDeg;
+            const intendedPower = state.drawPower;
+            const releaseWindX = state.windX;
+
+            // Pre-shot ML Prediction (if model is already active)
+            const preShotPrediction = predictNextShotScore(bow.id, intendedPower, intendedAngle, releaseWindX);
+
+            // Lock the predicted value on HUD until the player angles the next shot
+            if (preShotPrediction !== null) {
+                state.lockedPredictionValue = preShotPrediction;
+                state.isPredictionLocked = true;
+            } else {
+                state.lockedPredictionValue = null;
+                state.isPredictionLocked = false;
+            }
+
+            const actualAngle = intendedAngle + gAngle * (spread.totalAngleSpreadDeg * 0.5) + windGustBias;
+            const noisyPower = intendedPower * (1 + gPower * (spread.totalPowerSpreadPct * 0.5));
+            const actualPower = clamp(noisyPower, 10, bow.maxPower * 1.05);
+
+            // Pre-extract engineered features at the exact moment of release
+            const releaseFeatures = extractEngineeredFeatures(bow.id, intendedPower, intendedAngle, releaseWindX);
+
+            const rad = (actualAngle * Math.PI) / 180;
+            const v0 = powerToVelocity(actualPower);
+
+            state.arrows.push({
+                bowId: bow.id,
+                bowName: bow.name,
+                bowColor: bow.color,
+                x: state.archerX,
+                y: state.archerY,
+                vx: Math.cos(rad) * v0,
+                vy: Math.sin(rad) * v0,
+                angle: rad,
+                trail: [],
+                intendedPower,
+                intendedAngle,
+                actualPower,
+                actualAngle,
+                releaseWindX,
+                releaseFeatures,
+                preShotPrediction,
+                flightTime: 0
+            });
+
+            state.arrowsFired++;
+            document.getElementById('lastShotDeltaBadge').textContent =
+                `Shot: ${actualAngle.toFixed(0)}° P:${actualPower.toFixed(0)}`;
+
+            sfx.playRelease(intendedPower / 200);
+
+            // Immediately return the bow's angle and power to the ground-facing resting stance
+            resetBowToGroundStance();
+        }
+
+        /**
+         * Updates the Recent Actual vs. Predicted Value HUD Box & Text Box
+         */
+        function updateRecentComparisonBox(shotNum, bowName, actualScore, predictedScore, bowShotIndex) {
+            const actualEl = document.getElementById('boxRecentActual');
+            const predEl = document.getElementById('boxRecentPredicted');
+            const errEl = document.getElementById('boxRecentError');
+            const tagEl = document.getElementById('recentShotBowTag');
+            const logInput = document.getElementById('recentLogTextBox');
+            const miniActualEl = document.getElementById('mlMiniActual');
+
+            tagEl.textContent = `#${shotNum} ${bowName}`;
+            actualEl.textContent = actualScore.toFixed(2);
+            if (miniActualEl) miniActualEl.textContent = actualScore.toFixed(1);
+
+            let entrySummary = '';
+            if (predictedScore !== null && predictedScore !== undefined) {
+                const err = Math.abs(actualScore - predictedScore);
+                predEl.textContent = predictedScore.toFixed(2);
+                errEl.textContent = `±${err.toFixed(2)}`;
+                entrySummary = `[#${shotNum} ${bowName}] Actual: ${actualScore.toFixed(2)} | Pred: ${predictedScore.toFixed(2)} (Err: ${err.toFixed(2)})`;
+            } else {
+                predEl.textContent = `Cal (${bowShotIndex}/4)`;
+                errEl.textContent = '--';
+                entrySummary = `[#${shotNum} ${bowName}] Actual: ${actualScore.toFixed(2)} | Pred: Calibrating (${bowShotIndex}/4)`;
+            }
+
+            state.recentShotsLog.unshift(entrySummary);
+            if (state.recentShotsLog.length > 6) state.recentShotsLog.pop();
+            logInput.value = state.recentShotsLog.join('  •  ');
+        }
+
+        /**
+         * Computes a continuous 0.0 to 10.0 score for a completed arrow shot,
+         * updates the prominent Scoreboard, auto-clears arrows every 10 shots,
+         * and refits the Multi-Linear Regression model.
+         */
+        function recordShotOutcome(arrow, continuousScore, hitLabel, color) {
+            const score10 = clamp(continuousScore, 0.0, 10.0);
+            state.totalScore += score10;
+            state.shotsSinceClear++;
+
+            // Update Prominent Scoreboard Last Shot Badge
+            const lastShotBadge = document.getElementById('hudLastShotBadge');
+            if (lastShotBadge) {
+                lastShotBadge.textContent = `+${score10.toFixed(1)} PTS`;
+                lastShotBadge.style.color = color;
+            }
+
+            // Save training sample with engineered features for this specific bow
+            bowDatasets[arrow.bowId].push({
+                power: arrow.intendedPower,
+                angle: arrow.intendedAngle,
+                windSpeed: arrow.releaseWindX,
+                features: arrow.releaseFeatures || extractEngineeredFeatures(arrow.bowId, arrow.intendedPower, arrow.intendedAngle, arrow.releaseWindX),
+                score: score10
+            });
+
+            const bowShotCount = bowDatasets[arrow.bowId].length;
+
+            // Update Recent Actual vs Predicted Value Text Box
+            updateRecentComparisonBox(
+                state.arrowsFired,
+                arrow.bowName || arrow.bowId,
+                score10,
+                arrow.preShotPrediction,
+                bowShotCount
+            );
+
+            // Refit Multi-Linear Regression model if >= 4 shots exist for this bow
+            fitBowRegressionModel(arrow.bowId);
+
+            // If this 4th shot just calibrated the model and the user hasn't angled the next shot yet,
+            // lock the newly-calibrated prediction for the shot parameters just fired
+            if (arrow.preShotPrediction === null && bowModels[arrow.bowId] && state.aimAngleDeg === DEFAULT_REST_ANGLE) {
+                state.lockedPredictionValue = predictNextShotScore(
+                    arrow.bowId,
+                    arrow.intendedPower,
+                    arrow.intendedAngle,
+                    arrow.releaseWindX
+                );
+                state.isPredictionLocked = true;
+            }
+
+            // Show floating score + ML prediction comparison if ML was active
+            let floatMsg = `${hitLabel} (+${score10.toFixed(1)})`;
+            if (arrow.preShotPrediction !== null) {
+                floatMsg += ` | Pred: ${arrow.preShotPrediction.toFixed(1)}`;
+            }
+            spawnFloatingText(arrow.x, Math.max(2.5, arrow.y + 2.0), floatMsg, color);
+
+            // Automatically clear stuck arrows every 10 shots
+            if (state.shotsSinceClear >= 10) {
+                state.stuckArrows = [];
+                state.shotsSinceClear = 0;
+                spawnFloatingText(state.targetWorldX - 8, state.targetRadius * 2 + 2.5, '🧹 AUTO-CLEARED 10 ARROWS!', '#22d3ee');
+            }
+
+            renderBowSelectorStrip();
+            updateHUD();
+        }
+
+        // --- 11. GENTLE AUTONOMOUS WIND, MOVEMENT & PHYSICS UPDATE ---
+        function updatePhysics(dt, timeSec) {
+            // 1. Gentle, Low-Variation Autonomous Wind Evolution (-3.5 m/s to +3.5 m/s)
+            if (timeSec > state.nextWindShiftTime) {
+                state.windTargetX = (Math.random() * 7.0) - 3.5;   // Gentle -3.5 to +3.5 m/s breeze
+                state.windTargetY = (Math.random() * 0.8) - 0.4;   // Very subtle vertical draft
+                state.nextWindShiftTime = timeSec + 8.0 + Math.random() * 6.0;
+            }
+
+            // Smooth, slow harmonic breeze oscillation
+            const harmonicX = Math.sin(timeSec * 0.55 + state.windPhase) * 0.45;
+            const harmonicY = Math.cos(timeSec * 0.7 + state.windPhase) * 0.12;
+
+            state.windX += (state.windTargetX + harmonicX - state.windX) * dt * 0.35;
+            state.windY += (state.windTargetY + harmonicY - state.windY) * dt * 0.35;
+
+            // Update Top HUD Wind Compass & Readout
+            const windAngleDeg = Math.atan2(-state.windY, state.windX) * (180 / Math.PI);
+            const compassEl = document.getElementById('windCompassArrow');
+            if (compassEl) compassEl.style.transform = `rotate(${windAngleDeg.toFixed(1)}deg)`;
+
+            const windReadoutEl = document.getElementById('hudWindReadout');
+            if (windReadoutEl) {
+                const dirLabel = state.windX >= 0 ? 'Tail' : 'Head';
+                windReadoutEl.textContent = `${state.windX >= 0 ? '+' : ''}${state.windX.toFixed(1)} m/s ${dirLabel}`;
+            }
+
+            // Refresh live ML prediction continuously as gentle wind shifts
+            updateMLPredictorHUD();
+
+            // 2. Character Movement via Virtual Joystick or Keyboard (A/D or Left/Right)
+            let moveInput = state.joystickInputX;
+            if (state.keyLeft) moveInput -= 1;
+            if (state.keyRight) moveInput += 1;
+            moveInput = clamp(moveInput, -1, 1);
+
+            const maxWalkSpeed = 18.0; // meters per second
+            state.archerVx = moveInput * maxWalkSpeed;
+
+            if (Math.abs(state.archerVx) > 0.05) {
+                state.archerX = clamp(
+                    state.archerX + state.archerVx * dt,
+                    -35,
+                    state.targetWorldX - 25
+                );
+                state.walkCycle += Math.abs(state.archerVx) * dt * 1.4;
+                updateHUD();
+            }
+
+            // 2b. Smooth Launch Angle Adjustment via Up / Down Arrow Keys (or W / S Keys)
+            let angleInput = 0;
+            if (state.keyUp) angleInput += 1;
+            if (state.keyDown) angleInput -= 1;
+            if (angleInput !== 0) {
+                unlockPredictionForNextShot();
+                const angleSpeedDegPerSec = 38.0;
+                state.aimAngleDeg = clamp(
+                    Math.round((state.aimAngleDeg + angleInput * angleSpeedDegPerSec * dt) * 2) / 2,
+                    -25,
+                    75
+                );
+                sliderAngle.value = state.aimAngleDeg;
+                updateHUD();
+            }
+
+            // 2c. Smooth Draw Power Adjustment via + / - Keys (Equal / Minus / NumpadAdd / NumpadSubtract)
+            let powerInput = 0;
+            if (state.keyPwrInc) powerInput += 1;
+            if (state.keyPwrDec) powerInput -= 1;
+            if (powerInput !== 0) {
+                unlockPredictionForNextShot();
+                const bow = BOW_TYPES[state.selectedBowIndex];
+                const powerSpeedPerSec = 55.0;
+                state.drawPower = clamp(
+                    state.drawPower + powerInput * powerSpeedPerSec * dt,
+                    15,
+                    bow.maxPower
+                );
+                sliderPower.value = Math.round(state.drawPower);
+                updateHUD();
+            }
+
+            // 3. Update Flying Arrows
+            const targetX = state.targetWorldX;
+            const targetCenterY = state.targetRadius + 0.45;
+
+            for (let i = state.arrows.length - 1; i >= 0; i--) {
+                const a = state.arrows[i];
+                a.flightTime += dt;
+
+                const prevX = a.x;
+                const prevY = a.y;
+
+                const relVx = a.vx - state.windX;
+                const relVy = a.vy - state.windY;
+                const relSpeed = Math.hypot(relVx, relVy);
+
+                const ax = -DRAG_COEFF * relSpeed * relVx;
+                const ay = -GRAVITY - DRAG_COEFF * relSpeed * relVy;
+
+                a.vx += ax * dt;
+                a.vy += ay * dt;
+                a.x += a.vx * dt;
+                a.y += a.vy * dt;
+                a.angle = Math.atan2(a.vy, a.vx);
+
+                a.trail.push({ x: a.x, y: a.y });
+                if (a.trail.length > 32) a.trail.shift();
+
+                // Check Target Plane Intersection
+                if (prevX <= targetX && a.x >= targetX) {
+                    const frac = (targetX - prevX) / Math.max(0.0001, a.x - prevX);
+                    const hitY = prevY + frac * (a.y - prevY);
+                    const distFromCenter = Math.abs(hitY - targetCenterY);
+
+                    if (distFromCenter <= state.targetRadius) {
+                        // Continuous 1.5 to 10.0 score based on closeness to center bullseye
+                        const normDist = distFromCenter / state.targetRadius;
+                        const continuousScore = clamp(10.0 - normDist * 8.5, 1.5, 10.0);
+
+                        let label = 'OUTER RING';
+                        let color = '#38bdf8';
+                        if (normDist <= 0.22) {
+                            label = '🎯 BULLSEYE';
+                            color = '#fbbf24';
+                        } else if (normDist <= 0.55) {
+                            label = 'INNER RING';
+                            color = '#34d399';
+                        }
+
+                        sfx.playHit(continuousScore);
+                        state.stuckArrows.push({
+                            inTarget: true,
+                            relOffsetY: hitY - targetCenterY,
+                            angle: a.angle,
+                            color: a.bowColor
+                        });
+
+                        a.x = targetX;
+                        a.y = hitY;
+                        spawnHitParticles(targetX, hitY, color, 20);
+                        recordShotOutcome(a, continuousScore, label, color);
+                        state.arrows.splice(i, 1);
+                        continue;
+                    }
+                }
+
+                // Check Ground Impact
+                if (a.y <= 0) {
+                    const frac = (0 - prevY) / Math.min(-0.0001, a.y - prevY);
+                    const hitX = prevX + clamp(frac, 0, 1) * (a.x - prevX);
+                    a.x = hitX;
+                    a.y = 0;
+
+                    // Near-miss proximity gives a small partial gradient (0.0 to 1.4) so Linear Regression learns directionality smoothly!
+                    const missDist = Math.abs(hitX - targetX);
+                    const proximityScore = clamp(1.4 * Math.exp(-missDist / 18), 0.0, 1.4);
+
+                    sfx.playHit(0);
+                    state.stuckArrows.push({
+                        inTarget: false,
+                        worldX: hitX,
+                        worldY: 0,
+                        angle: a.angle,
+                        color: a.bowColor
+                    });
+
+                    const errM = (hitX - targetX).toFixed(1);
+                    spawnHitParticles(hitX, 0.1, '#94a3b8', 9);
+                    recordShotOutcome(a, proximityScore, `MISS (${errM >= 0 ? '+' : ''}${errM}m)`, '#94a3b8');
+                    state.arrows.splice(i, 1);
+                    continue;
+                }
+
+                if (a.x > state.targetWorldX + 90 || a.x < state.archerX - 50) {
+                    recordShotOutcome(a, 0.0, 'OUT OF BOUNDS', '#ef4444');
+                    state.arrows.splice(i, 1);
+                }
+            }
+
+            // 4. Particles & Floating Text
+            for (let i = state.particles.length - 1; i >= 0; i--) {
+                const p = state.particles[i];
+                p.x += p.vx * dt;
+                p.y += p.vy * dt;
+                p.vy -= GRAVITY * 0.6 * dt;
+                p.life -= dt;
+                if (p.life <= 0) state.particles.splice(i, 1);
+            }
+
+            for (let i = state.floatingTexts.length - 1; i >= 0; i--) {
+                const ft = state.floatingTexts[i];
+                ft.y += 2.0 * dt;
+                ft.life -= dt;
+                if (ft.life <= 0) state.floatingTexts.splice(i, 1);
+            }
+
+            // 5. Wind Streaks & Clouds
+            const vxNorm = state.windX * 0.014;
+            const vyNorm = -state.windY * 0.01;
+            state.windStreaks.forEach(s => {
+                s.x += (vxNorm + (Math.abs(vxNorm) < 0.01 ? 0.012 : 0)) * s.speedOffset * dt * 11;
+                s.y += vyNorm * s.speedOffset * dt * 11;
+                if (s.x > 1.05) s.x = -0.05;
+                if (s.x < -0.05) s.x = 1.05;
+                if (s.y > 0.75) s.y = 0.08;
+                if (s.y < 0.06) s.y = 0.74;
+            });
+
+            state.clouds.forEach(c => {
+                c.x += vxNorm * c.speedFactor * dt * 1.4;
+                if (c.x > 1.15) c.x = -0.15;
+                if (c.x < -0.15) c.x = 1.15;
+            });
+        }
+
+        function spawnHitParticles(wx, wy, color, count) {
+            for (let i = 0; i < count; i++) {
+                const ang = Math.random() * Math.PI * 2;
+                const spd = 2 + Math.random() * 8;
+                state.particles.push({
+                    x: wx,
+                    y: wy,
+                    vx: Math.cos(ang) * spd,
+                    vy: Math.sin(ang) * spd + 2,
+                    color,
+                    life: 0.45 + Math.random() * 0.35,
+                    maxLife: 0.8
+                });
+            }
+        }
+
+        function spawnFloatingText(wx, wy, text, color) {
+            state.floatingTexts.push({
+                x: wx,
+                y: wy,
+                text,
+                color,
+                life: 1.5,
+                maxLife: 1.5
+            });
+        }
+
+        // --- 12. RENDERING SCENE, THEMES & SCALED-UP ARCHER / TARGET ---
+        function drawScene(timeSec) {
+            const m = getViewportMetrics();
+            const { w, h, groundY, ppm } = m;
+            const theme = BG_THEMES[state.bgThemeIndex];
+
+            // 1. Dynamic Theme Sky Gradient
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
+            skyGrad.addColorStop(0, theme.skyTop);
+            skyGrad.addColorStop(0.55, theme.skyMid);
+            skyGrad.addColorStop(1, theme.skyBot);
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, w, groundY);
+
+            // Celestial Sun / Moon / Horizon Glow
+            const glowGrad = ctx.createRadialGradient(w * 0.72, groundY * 0.36, 12, w * 0.72, groundY * 0.36, w * 0.36);
+            glowGrad.addColorStop(0, theme.sunColor);
+            glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            ctx.fillStyle = glowGrad;
+            ctx.fillRect(0, 0, w, groundY);
+
+            // 2. Clouds
+            ctx.fillStyle = state.bgThemeIndex === 2 ? 'rgba(255, 255, 255, 0.45)' : 'rgba(248, 250, 252, 0.09)';
+            state.clouds.forEach(c => {
+                const cx = c.x * w;
+                const cy = c.y * groundY;
+                const r = 28 * c.scale;
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.arc(cx + r * 0.8, cy + 3, r * 0.75, 0, Math.PI * 2);
+                ctx.arc(cx - r * 0.8, cy + 4, r * 0.7, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // 3. Mountain Layers
+            drawMountainLayer(w, groundY, 0.36, theme.mtnBack, 110);
+            drawMountainLayer(w, groundY, 0.20, theme.mtnFront, 230);
+
+            // 4. Autonomous Wind Streamlines
+            const windMag = Math.hypot(state.windX, state.windY);
+            const windAngle = Math.atan2(-state.windY, state.windX);
+            state.windStreaks.forEach(s => {
+                const sx = s.x * w;
+                const sy = s.y * groundY;
+                const len = s.len * (0.45 + windMag * 0.08);
+                const wave = Math.sin(timeSec * 5 + s.x * 9) * 3.5;
+
+                ctx.save();
+                ctx.translate(sx, sy);
+                ctx.rotate(windAngle);
+                ctx.strokeStyle = state.bgThemeIndex === 3
+                    ? `rgba(244, 114, 182, ${clamp(s.alpha * 0.55, 0.12, 0.6)})`
+                    : `rgba(125, 211, 252, ${clamp(s.alpha * (0.3 + windMag * 0.06), 0.08, 0.5)})`;
+                ctx.lineWidth = 1.6;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.quadraticCurveTo(len * 0.5, wave, len, 0);
+                ctx.stroke();
+                ctx.restore();
+            });
+
+            // 5. Trajectory Preview & Variance Cone (Only shown when aiming above resting ground angle)
+            if (state.aimAngleDeg > -14 || state.isDraggingBow) {
+                drawTrajectoryPreview(m);
+            }
+
+            // 6. Ground Turf & Distance Yardage Grid
+            const groundGrad = ctx.createLinearGradient(0, groundY, 0, h);
+            groundGrad.addColorStop(0, theme.groundTop);
+            groundGrad.addColorStop(0.38, theme.groundMid);
+            groundGrad.addColorStop(1, theme.groundBot);
+            ctx.fillStyle = groundGrad;
+            ctx.fillRect(0, groundY, w, h - groundY);
+
+            ctx.strokeStyle = theme.gridLine;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, groundY);
+            ctx.lineTo(w, groundY);
+            ctx.stroke();
+
+            // Yardage Ticks
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '700 10px "JetBrains Mono", monospace';
+            ctx.textAlign = 'center';
+            const startTick = Math.floor(m.minWorldX / 25) * 25;
+            const endTick = Math.ceil(m.maxWorldX / 25) * 25;
+            for (let dist = startTick; dist <= endTick; dist += 25) {
+                const s = worldToScreen(dist, 0, m);
+                ctx.strokeStyle = 'rgba(148, 163, 184, 0.28)';
+                ctx.beginPath();
+                ctx.moveTo(s.x, groundY);
+                ctx.lineTo(s.x, groundY + 6);
+                ctx.stroke();
+                ctx.fillText(`${dist}m`, s.x, groundY + 17);
+            }
+
+            // Swaying Grass Blades reacting to Autonomous Wind
+            const windBend = state.windX * 0.9;
+            state.grassBlades.forEach(g => {
+                const gx = g.normX * w;
+                const sway = windBend + Math.sin(timeSec * 3.8 + g.phase) * 2.5;
+                ctx.strokeStyle = `hsl(${theme.grassHueBase + (g.hue - 125)}, 55%, 34%)`;
+                ctx.lineWidth = 1.4;
+                ctx.beginPath();
+                ctx.moveTo(gx, groundY);
+                ctx.quadraticCurveTo(gx + sway * 0.5, groundY - g.height * 0.6, gx + sway, groundY - g.height);
+                ctx.stroke();
+            });
+
+            // 7. Scaled-Up Target, Stuck Arrows, Scaled-Up Articulated Archer, Flying Arrows
+            drawTarget(m);
+            drawStuckArrows(m);
+            drawCleanArticulatedArcher(m);
+            drawFlyingArrows(m);
+            drawParticlesAndScores(m);
+
+            if (state.isDraggingBow) {
+                drawDragAimGizmo();
+            }
+        }
+
+        function drawMountainLayer(w, groundY, heightFactor, color, seed) {
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(0, groundY);
+            const segs = 16;
+            for (let i = 0; i <= segs; i++) {
+                const x = (i / segs) * w;
+                const peak = Math.sin(i * 1.4 + seed) * 0.4 + Math.cos(i * 0.7 - seed) * 0.3 + 0.5;
+                ctx.lineTo(x, groundY - peak * groundY * heightFactor);
+            }
+            ctx.lineTo(w, groundY);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawTrajectoryPreview(m) {
+            const bow = BOW_TYPES[state.selectedBowIndex];
+            const spread = getEffectiveSpread(bow);
+            const centerPts = simulateTrajectoryPoints(state.aimAngleDeg, state.drawPower);
+
+            if (state.showVarianceCone) {
+                const highPts = simulateTrajectoryPoints(
+                    state.aimAngleDeg + spread.totalAngleSpreadDeg,
+                    clamp(state.drawPower * (1 + spread.totalPowerSpreadPct), 10, bow.maxPower * 1.08)
+                );
+                const lowPts = simulateTrajectoryPoints(
+                    state.aimAngleDeg - spread.totalAngleSpreadDeg,
+                    clamp(state.drawPower * (1 - spread.totalPowerSpreadPct), 10, bow.maxPower * 1.08)
+                );
+
+                ctx.save();
+                ctx.beginPath();
+                highPts.forEach((pt, idx) => {
+                    const s = worldToScreen(pt.x, pt.y, m);
+                    if (idx === 0) ctx.moveTo(s.x, s.y);
+                    else ctx.lineTo(s.x, s.y);
+                });
+                for (let idx = lowPts.length - 1; idx >= 0; idx--) {
+                    const s = worldToScreen(lowPts[idx].x, lowPts[idx].y, m);
+                    ctx.lineTo(s.x, s.y);
+                }
+                ctx.closePath();
+
+                const startS = worldToScreen(state.archerX, state.archerY, m);
+                const coneGrad = ctx.createLinearGradient(startS.x, 0, m.w * 0.85, 0);
+                coneGrad.addColorStop(0, `${bow.color}36`);
+                coneGrad.addColorStop(1, `${bow.color}08`);
+                ctx.fillStyle = coneGrad;
+                ctx.fill();
+
+                ctx.strokeStyle = `${bow.color}55`;
+                ctx.setLineDash([4, 4]);
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            ctx.save();
+            ctx.strokeStyle = bow.color;
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            centerPts.forEach((pt, idx) => {
+                const s = worldToScreen(pt.x, pt.y, m);
+                if (idx === 0) ctx.moveTo(s.x, s.y);
+                else ctx.lineTo(s.x, s.y);
+            });
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        /**
+         * Renders a 1.65x larger, bold, articulated vector ranger character with animated walking legs,
+         * torso armor, quiver with arrows, hood/visor, and dynamic flexing bow limbs that rest facing the ground (-18°) after each shot.
+         */
+        function drawCleanArticulatedArcher(m) {
+            const bow = BOW_TYPES[state.selectedBowIndex];
+            const feet = worldToScreen(state.archerX, 0, m);
+            const shoulder = worldToScreen(state.archerX, state.archerY, m);
+
+            // 1.65x Larger character scale so the human archer is bold and clearly visible on mobile & desktop
+            const charH = clamp((feet.y - shoulder.y) * 1.45, 64, 112);
+            const scale = charH / 54;
+            const hipY = feet.y - charH * 0.46;
+            const shoulderY = feet.y - charH * 0.88;
+            const cx = feet.x;
+
+            const isMoving = Math.abs(state.archerVx) > 0.1;
+            const stride = isMoving ? Math.sin(state.walkCycle * 4.5) * (10 * scale) : 0;
+
+            ctx.save();
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // Ground Shadow under Archer
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.48)';
+            ctx.beginPath();
+            ctx.ellipse(cx, feet.y + 2, 16 * scale, 4.5 * scale, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Back Quiver & Fletched Arrows
+            ctx.save();
+            ctx.translate(cx - 7 * scale, shoulderY + 6 * scale);
+            ctx.rotate(-0.32);
+            ctx.fillStyle = '#451a03';
+            ctx.strokeStyle = '#78350f';
+            ctx.lineWidth = 1.6 * scale;
+            ctx.beginPath();
+            ctx.roundRect(-4.5 * scale, -8 * scale, 7.5 * scale, 23 * scale, 3 * scale);
+            ctx.fill();
+            ctx.stroke();
+            ctx.strokeStyle = bow.color;
+            ctx.lineWidth = 1.6 * scale;
+            ctx.beginPath();
+            ctx.moveTo(-2 * scale, -8 * scale); ctx.lineTo(-4 * scale, -16 * scale);
+            ctx.moveTo(1.5 * scale, -8 * scale);  ctx.lineTo(1.5 * scale, -17 * scale);
+            ctx.stroke();
+            ctx.restore();
+
+            // Back Leg (Darker)
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 5 * scale;
+            ctx.beginPath();
+            ctx.moveTo(cx - 2 * scale, hipY);
+            ctx.lineTo(cx - 5 * scale - stride * 0.6, hipY + (feet.y - hipY) * 0.52);
+            ctx.lineTo(cx - 7 * scale - stride, feet.y);
+            ctx.stroke();
+
+            // Front Leg
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 5 * scale;
+            ctx.beginPath();
+            ctx.moveTo(cx + 2 * scale, hipY);
+            ctx.lineTo(cx + 6 * scale + stride * 0.6, hipY + (feet.y - hipY) * 0.52);
+            ctx.lineTo(cx + 7 * scale + stride, feet.y);
+            ctx.stroke();
+
+            // Tunic / Torso Armor
+            const torsoGrad = ctx.createLinearGradient(cx - 9 * scale, shoulderY, cx + 9 * scale, hipY);
+            torsoGrad.addColorStop(0, '#1e293b');
+            torsoGrad.addColorStop(1, '#0f172a');
+            ctx.fillStyle = torsoGrad;
+            ctx.strokeStyle = bow.color;
+            ctx.lineWidth = 1.8 * scale;
+            ctx.beginPath();
+            ctx.moveTo(cx - 7.5 * scale, shoulderY);
+            ctx.lineTo(cx + 7.5 * scale, shoulderY);
+            ctx.lineTo(cx + 5.5 * scale, hipY + 3 * scale);
+            ctx.lineTo(cx - 5.5 * scale, hipY + 3 * scale);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Head & Glowing Tactical Visor
+            const headY = shoulderY - 9.5 * scale;
+            ctx.fillStyle = '#334155';
+            ctx.beginPath();
+            ctx.arc(cx, headY, 8 * scale, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = bow.color;
+            ctx.beginPath();
+            ctx.roundRect(cx + 1 * scale, headY - 3 * scale, 7 * scale, 3.8 * scale, 1.5 * scale);
+            ctx.fill();
+
+            // Rotate Arm & Bow Assembly around Shoulder (Points down at ground when at -18° default!)
+            const aimRad = -(state.aimAngleDeg * Math.PI) / 180;
+            ctx.translate(cx + 2 * scale, shoulderY + 3 * scale);
+            ctx.rotate(aimRad);
+
+            const powerRatio = (state.drawPower - 15) / 185;
+            const pullDist = (8 + powerRatio * 20) * scale;
+            const bowRadius = (23 + state.selectedBowIndex * 3.5) * bow.limbCurve * scale;
+
+            // Front Bow Arm extending to Grip
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 3.8 * scale;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(21 * scale, 0);
+            ctx.stroke();
+
+            // Bow Riser & Curved Limbs
+            ctx.strokeStyle = bow.woodColor;
+            ctx.lineWidth = (3.4 + state.selectedBowIndex * 0.5) * scale;
+            ctx.beginPath();
+            ctx.arc(21 * scale - bowRadius * 0.72, 0, bowRadius, -Math.PI * 0.42, Math.PI * 0.42);
+            ctx.stroke();
+
+            const arcCenterX = 21 * scale - bowRadius * 0.72;
+            const tipTopX = arcCenterX + Math.cos(-Math.PI * 0.42) * bowRadius;
+            const tipTopY = Math.sin(-Math.PI * 0.42) * bowRadius;
+            const tipBotX = arcCenterX + Math.cos(Math.PI * 0.42) * bowRadius;
+            const tipBotY = Math.sin(Math.PI * 0.42) * bowRadius;
+
+            // Taut Bowstring
+            const stringPullX = 21 * scale - pullDist;
+            ctx.strokeStyle = '#f8fafc';
+            ctx.lineWidth = 1.5 * scale;
+            ctx.beginPath();
+            ctx.moveTo(tipTopX, tipTopY);
+            ctx.lineTo(stringPullX, 0);
+            ctx.lineTo(tipBotX, tipBotY);
+            ctx.stroke();
+
+            // Nocked Arrow
+            const arrowTipX = stringPullX + 37 * scale;
+            ctx.strokeStyle = '#f8fafc';
+            ctx.lineWidth = 2.2 * scale;
+            ctx.beginPath();
+            ctx.moveTo(stringPullX, 0);
+            ctx.lineTo(arrowTipX, 0);
+            ctx.stroke();
+
+            // Glowing Broadhead Tip
+            ctx.fillStyle = bow.color;
+            ctx.beginPath();
+            ctx.moveTo(arrowTipX + 7.5 * scale, 0);
+            ctx.lineTo(arrowTipX - 2 * scale, -3.8 * scale);
+            ctx.lineTo(arrowTipX - 2 * scale, 3.8 * scale);
+            ctx.closePath();
+            ctx.fill();
+
+            // Back Drawing Arm (Elbow flexing back)
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 3.5 * scale;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(stringPullX - 5 * scale, -6 * scale);
+            ctx.lineTo(stringPullX, 0);
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        function drawTarget(m) {
+            const targetWorldX = state.targetWorldX;
+            const targetCenterY = state.targetRadius + 0.45;
+            const centerS = worldToScreen(targetWorldX, targetCenterY, m);
+            const groundS = worldToScreen(targetWorldX, 0, m);
+            // Larger minimum pixel size (28px min) & 5.6m world radius so target is always bold and easy to see
+            const radiusPx = Math.max(28, state.targetRadius * m.ppm);
+
+            // Wooden Stand
+            ctx.strokeStyle = '#78350f';
+            ctx.lineWidth = Math.max(3.5, radiusPx * 0.14);
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(centerS.x, centerS.y - radiusPx * 0.6);
+            ctx.lineTo(groundS.x + radiusPx * 0.7, groundS.y);
+            ctx.moveTo(centerS.x, centerS.y - radiusPx * 0.6);
+            ctx.lineTo(groundS.x - radiusPx * 0.35, groundS.y);
+            ctx.stroke();
+
+            const rings = [
+                { frac: 1.0, color: '#f8fafc' },
+                { frac: 0.78, color: '#0284c7' },
+                { frac: 0.55, color: '#ef4444' },
+                { frac: 0.24, color: '#fbbf24' }
+            ];
+
+            rings.forEach(r => {
+                ctx.fillStyle = r.color;
+                ctx.strokeStyle = '#0f172a';
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.ellipse(
+                    centerS.x,
+                    centerS.y,
+                    Math.max(7, radiusPx * 0.36 * r.frac),
+                    radiusPx * r.frac,
+                    0, 0, Math.PI * 2
+                );
+                ctx.fill();
+                ctx.stroke();
+            });
+
+            // Distance Flag above Target
+            const netDist = getNetDistance();
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+            ctx.strokeStyle = '#34d399';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.roundRect(centerS.x - 30, centerS.y - radiusPx - 28, 60, 20, 6);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#34d399';
+            ctx.font = '800 11px "JetBrains Mono", monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${netDist.toFixed(0)}m`, centerS.x, centerS.y - radiusPx - 14);
+        }
+
+        function drawFlyingArrows(m) {
+            state.arrows.forEach(a => {
+                if (a.trail.length > 1) {
+                    ctx.save();
+                    ctx.beginPath();
+                    a.trail.forEach((pt, idx) => {
+                        const s = worldToScreen(pt.x, pt.y, m);
+                        if (idx === 0) ctx.moveTo(s.x, s.y);
+                        else ctx.lineTo(s.x, s.y);
+                    });
+                    ctx.strokeStyle = a.bowColor;
+                    ctx.globalAlpha = 0.6;
+                    ctx.lineWidth = 2.2;
+                    ctx.stroke();
+                    ctx.restore();
+                }
+
+                const s = worldToScreen(a.x, a.y, m);
+                drawArrowSprite(s.x, s.y, -a.angle, a.bowColor);
+            });
+        }
+
+        function drawStuckArrows(m) {
+            const targetWorldX = state.targetWorldX;
+            const targetCenterY = state.targetRadius + 0.45;
+
+            state.stuckArrows.forEach(sa => {
+                const wx = sa.inTarget ? targetWorldX : sa.worldX;
+                const wy = sa.inTarget ? targetCenterY + sa.relOffsetY : sa.worldY;
+                const s = worldToScreen(wx, wy, m);
+                drawArrowSprite(s.x, s.y, -sa.angle, sa.color, 0.82);
+            });
+        }
+
+        function drawArrowSprite(sx, sy, screenAngleRad, color, alpha = 1) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.translate(sx, sy);
+            ctx.rotate(screenAngleRad);
+
+            ctx.strokeStyle = '#f8fafc';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-20, 0);
+            ctx.lineTo(4, 0);
+            ctx.stroke();
+
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-20, 0); ctx.lineTo(-24, -3.5);
+            ctx.moveTo(-20, 0); ctx.lineTo(-24, 3.5);
+            ctx.stroke();
+
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(9, 0);
+            ctx.lineTo(2, -3);
+            ctx.lineTo(2, 3);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawParticlesAndScores(m) {
+            state.particles.forEach(p => {
+                const s = worldToScreen(p.x, p.y, m);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = clamp(p.life / p.maxLife, 0, 1);
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, 2.5, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+
+            state.floatingTexts.forEach(ft => {
+                const s = worldToScreen(ft.x, ft.y, m);
+                ctx.save();
+                ctx.globalAlpha = clamp(ft.life / ft.maxLife, 0, 1);
+                ctx.font = '800 12px "Inter", sans-serif';
+                ctx.fillStyle = ft.color;
+                ctx.textAlign = 'center';
+                ctx.shadowColor = 'rgba(0,0,0,0.9)';
+                ctx.shadowBlur = 6;
+                ctx.fillText(ft.text, s.x, s.y);
+                ctx.restore();
+            });
+        }
+
+        function drawDragAimGizmo() {
+            const bow = BOW_TYPES[state.selectedBowIndex];
+            ctx.save();
+            ctx.strokeStyle = bow.color;
+            ctx.lineWidth = 2;
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath();
+            ctx.moveTo(state.dragStartX, state.dragStartY);
+            ctx.lineTo(state.dragCurrentX, state.dragCurrentY);
+            ctx.stroke();
+
+            ctx.setLineDash([]);
+            const pred = predictNextShotScore(bow.id, state.drawPower, state.aimAngleDeg, state.windX);
+            const predStr = pred !== null ? ` | ML: ${pred.toFixed(1)}` : '';
+            const label = `${state.aimAngleDeg.toFixed(1)}° | Pwr: ${Math.round(state.drawPower)}${predStr}`;
+
+            ctx.font = '700 11px "JetBrains Mono", monospace';
+            const textW = ctx.measureText(label).width + 16;
+            ctx.fillStyle = 'rgba(10, 15, 29, 0.92)';
+            ctx.beginPath();
+            ctx.roundRect(state.dragCurrentX - textW / 2, state.dragCurrentY - 34, textW, 22, 6);
+            ctx.fill();
+            ctx.strokeStyle = bow.color;
+            ctx.stroke();
+
+            ctx.fillStyle = '#fbbf24';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, state.dragCurrentX, state.dragCurrentY - 19);
+            ctx.restore();
+        }
+
+        // --- 13. ON-SCREEN VIRTUAL JOYSTICK & INPUT LISTENERS ---
+        const joystickZone = document.getElementById('joystickZone');
+        const joystickKnob = document.getElementById('joystickKnob');
+        let joystickPointerId = null;
+
+        function updateJoystickFromPoint(clientX, clientY) {
+            const rect = joystickZone.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const maxRadius = rect.width * 0.36;
+
+            let dx = clientX - centerX;
+            let dy = clientY - centerY;
+            const dist = Math.hypot(dx, dy);
+            if (dist > maxRadius) {
+                dx = (dx / dist) * maxRadius;
+                dy = (dy / dist) * maxRadius;
+            }
+
+            joystickKnob.style.transform = `translate(${dx.toFixed(1)}px, ${(dy * 0.35).toFixed(1)}px)`;
+            state.joystickInputX = clamp(dx / maxRadius, -1, 1);
+        }
+
+        function resetJoystick() {
+            joystickPointerId = null;
+            joystickKnob.style.transform = 'translate(0px, 0px)';
+            state.joystickInputX = 0;
+        }
+
+        joystickZone.addEventListener('pointerdown', (e) => {
+            e.stopPropagation();
+            joystickPointerId = e.pointerId;
+            joystickZone.setPointerCapture(e.pointerId);
+            updateJoystickFromPoint(e.clientX, e.clientY);
+        });
+
+        joystickZone.addEventListener('pointermove', (e) => {
+            if (e.pointerId !== joystickPointerId) return;
+            e.stopPropagation();
+            updateJoystickFromPoint(e.clientX, e.clientY);
+        });
+
+        joystickZone.addEventListener('pointerup', (e) => {
+            if (e.pointerId !== joystickPointerId) return;
+            resetJoystick();
+        });
+        joystickZone.addEventListener('pointercancel', resetJoystick);
+
+        // Canvas Drag-to-Aim / Shoot
+        function getCanvasCoords(clientX, clientY) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: (clientX - rect.left) * (canvas.width / rect.width),
+                y: (clientY - rect.top) * (canvas.height / rect.height)
+            };
+        }
+
+        canvas.addEventListener('pointerdown', (e) => {
+            const pt = getCanvasCoords(e.clientX, e.clientY);
+            state.isDraggingBow = true;
+            state.dragStartX = pt.x;
+            state.dragStartY = pt.y;
+            state.dragCurrentX = pt.x;
+            state.dragCurrentY = pt.y;
+        });
+
+        window.addEventListener('pointermove', (e) => {
+            if (!state.isDraggingBow) return;
+            const pt = getCanvasCoords(e.clientX, e.clientY);
+            state.dragCurrentX = pt.x;
+            state.dragCurrentY = pt.y;
+
+            const dx = state.dragStartX - state.dragCurrentX;
+            const dy = state.dragCurrentY - state.dragStartY;
+            const pullPx = Math.hypot(dx, dy);
+
+            if (pullPx > 8) {
+                unlockPredictionForNextShot();
+                const bow = BOW_TYPES[state.selectedBowIndex];
+                const rawAngle = Math.atan2(dy, dx) * (180 / Math.PI);
+                state.aimAngleDeg = clamp(Math.round(rawAngle * 2) / 2, -25, 75);
+
+                const ratio = clamp(pullPx / 170, 0.1, 1.0);
+                state.drawPower = Math.round(clamp(ratio * bow.maxPower, 15, bow.maxPower));
+
+                sliderAngle.value = state.aimAngleDeg;
+                sliderPower.value = state.drawPower;
+                updateHUD();
+            }
+        });
+
+        window.addEventListener('pointerup', () => {
+            if (!state.isDraggingBow) return;
+            const pullPx = Math.hypot(state.dragStartX - state.dragCurrentX, state.dragStartY - state.dragCurrentY);
+            state.isDraggingBow = false;
+            if (pullPx > 14) {
+                fireArrow();
+            }
+        });
+
+        // Tactical Sliders & Step Buttons
+        sliderPower.addEventListener('input', (e) => {
+            unlockPredictionForNextShot();
+            const bow = BOW_TYPES[state.selectedBowIndex];
+            state.drawPower = clamp(parseFloat(e.target.value), 15, bow.maxPower);
+            updateHUD();
+        });
+
+        sliderAngle.addEventListener('input', (e) => {
+            unlockPredictionForNextShot();
+            state.aimAngleDeg = clamp(parseFloat(e.target.value), -25, 75);
+            updateHUD();
+        });
+
+        document.getElementById('btnPwrDec').addEventListener('click', () => {
+            unlockPredictionForNextShot();
+            const bow = BOW_TYPES[state.selectedBowIndex];
+            state.drawPower = clamp(state.drawPower - 2, 15, bow.maxPower);
+            sliderPower.value = state.drawPower;
+            updateHUD();
+        });
+        document.getElementById('btnPwrInc').addEventListener('click', () => {
+            unlockPredictionForNextShot();
+            const bow = BOW_TYPES[state.selectedBowIndex];
+            state.drawPower = clamp(state.drawPower + 2, 15, bow.maxPower);
+            sliderPower.value = state.drawPower;
+            updateHUD();
+        });
+
+        document.getElementById('btnAngDec').addEventListener('click', () => {
+            unlockPredictionForNextShot();
+            state.aimAngleDeg = clamp(state.aimAngleDeg - 1, -25, 75);
+            sliderAngle.value = state.aimAngleDeg;
+            updateHUD();
+        });
+        document.getElementById('btnAngInc').addEventListener('click', () => {
+            unlockPredictionForNextShot();
+            state.aimAngleDeg = clamp(state.aimAngleDeg + 1, -25, 75);
+            sliderAngle.value = state.aimAngleDeg;
+            updateHUD();
+        });
+
+        // Target Anchor Distance Presets
+        document.querySelectorAll('.target-preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                state.targetWorldX = parseFloat(btn.dataset.dist);
+                document.querySelectorAll('.target-preset-btn').forEach(b => {
+                    b.className = 'target-preset-btn px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[9px] mono text-slate-300 border border-slate-700';
+                });
+                btn.className = 'target-preset-btn px-1.5 py-0.5 rounded bg-emerald-500/20 text-[9px] mono text-emerald-300 border border-emerald-500/40';
+                updateHUD();
+            });
+        });
+
+        document.getElementById('chkShowCone').addEventListener('change', (e) => {
+            state.showVarianceCone = e.target.checked;
+        });
+
+        document.getElementById('btnFireArrow').addEventListener('click', fireArrow);
+
+        // Prominent Manual Clear Arrows Button
+        document.getElementById('btnClearArrows').addEventListener('click', () => {
+            state.stuckArrows = [];
+            state.shotsSinceClear = 0;
+            spawnFloatingText(state.targetWorldX - 6, state.targetRadius * 2 + 2, '🧹 ARROWS CLEARED', '#22d3ee');
+            updateHUD();
+        });
+
+        // Background Theme Switcher Button
+        document.getElementById('btnCycleBg').addEventListener('click', () => {
+            state.bgThemeIndex = (state.bgThemeIndex + 1) % BG_THEMES.length;
+            const theme = BG_THEMES[state.bgThemeIndex];
+            document.getElementById('lblBgThemeName').textContent = theme.name;
+            spawnFloatingText(state.archerX + 14, 6.0, `🎨 THEME: ${theme.name.toUpperCase()}`, '#a5b4fc');
+        });
+
+        // Mobile / Compact ML Drawer Toggle Buttons
+        const mlDrawer = document.getElementById('mlTelemetryDrawer');
+        document.getElementById('btnToggleMLDrawer').addEventListener('click', () => {
+            mlDrawer.classList.toggle('mobile-open');
+            mlDrawer.classList.toggle('hidden');
+        });
+        document.getElementById('btnCloseMLDrawer').addEventListener('click', () => {
+            mlDrawer.classList.remove('mobile-open');
+            mlDrawer.classList.add('hidden');
+        });
+
+        // Instructions ("i") Modal Toggle & Close Listeners
+        const instructionsModal = document.getElementById('instructionsModal');
+        function toggleInstructionsModal() {
+            instructionsModal.classList.toggle('hidden');
+        }
+        function closeInstructionsModal() {
+            instructionsModal.classList.add('hidden');
+        }
+        document.getElementById('btnInfoModal').addEventListener('click', toggleInstructionsModal);
+        document.getElementById('btnCloseInfoModalTop').addEventListener('click', closeInstructionsModal);
+        document.getElementById('btnCloseInfoModalBottom').addEventListener('click', closeInstructionsModal);
+        instructionsModal.addEventListener('click', (e) => {
+            if (e.target === instructionsModal) closeInstructionsModal();
+        });
+
+        // Full Game & ML Model Reset Function
+        function resetGame() {
+            // Clear datasets and trained MLR weights for all 4 bows
+            BOW_TYPES.forEach(b => {
+                bowDatasets[b.id] = [];
+                bowModels[b.id] = null;
+            });
+
+            // Reset game state & positions (including ground-facing default bow stance)
+            state.selectedBowIndex = 0;
+            state.aimAngleDeg = DEFAULT_REST_ANGLE;
+            state.drawPower = DEFAULT_REST_POWER;
+            state.archerX = 0.0;
+            state.archerVx = 0.0;
+            state.targetWorldX = 95.0;
+            state.windX = 1.0;
+            state.windY = 0.0;
+            state.windTargetX = 1.5;
+            state.windTargetY = 0.0;
+            state.totalScore = 0.0;
+            state.arrowsFired = 0;
+            state.shotsSinceClear = 0;
+            state.recentShotsLog = [];
+            state.lockedPredictionValue = null;
+            state.isPredictionLocked = false;
+            state.arrows = [];
+            state.stuckArrows = [];
+            state.floatingTexts = [];
+            state.particles = [];
+
+            // Reset UI Sliders & Preset Buttons
+            sliderAngle.value = state.aimAngleDeg;
+            sliderPower.max = BOW_TYPES[0].maxPower;
+            sliderPower.value = state.drawPower;
+
+            document.querySelectorAll('.target-preset-btn').forEach(b => {
+                const isDefault = b.dataset.dist === '95';
+                b.className = isDefault
+                    ? 'target-preset-btn px-1.5 py-0.5 rounded bg-emerald-500/20 text-[9px] mono text-emerald-300 border border-emerald-500/40'
+                    : 'target-preset-btn px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[9px] mono text-slate-300 border border-slate-700';
+            });
+
+            // Reset Recent Actual vs Predicted Box & Scoreboard
+            document.getElementById('recentShotBowTag').textContent = 'No Shots Yet';
+            document.getElementById('boxRecentActual').textContent = '--';
+            document.getElementById('boxRecentPredicted').textContent = '--';
+            document.getElementById('boxRecentError').textContent = '--';
+            document.getElementById('mlMiniActual').textContent = '--';
+            document.getElementById('hudLastShotBadge').textContent = 'READY';
+            document.getElementById('hudLastShotBadge').style.color = '#34d399';
+            document.getElementById('recentLogTextBox').value = 'Game reset. Fire 4 shots with a bow to compare Actual vs ML Predicted score.';
+            document.getElementById('lastShotDeltaBadge').textContent = 'Rest: -18°';
+
+            selectBow(0);
+            spawnFloatingText(state.archerX + 12, 5.5, 'GAME & ML MODELS RESET', '#38bdf8');
+        }
+
+        document.getElementById('btnResetGame').addEventListener('click', resetGame);
+
+        // Standalone Clean HTML Export (Strips any host-injected scripts for 100% clean offline file)
+        document.getElementById('btnDownloadHTML').addEventListener('click', () => {
+            const clonedDoc = document.documentElement.cloneNode(true);
+            clonedDoc.querySelectorAll('[data-bard-client-injected="true"]').forEach(el => el.remove());
+            const cleanHtmlContent = '<!DOCTYPE html>\n' + clonedDoc.outerHTML;
+            const blob = new Blob([cleanHtmlContent], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'archery_ml_offline.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('btnSoundToggle').addEventListener('click', () => {
+            state.soundEnabled = !state.soundEnabled;
+            const btn = document.getElementById('btnSoundToggle');
+            btn.classList.toggle('text-amber-400', state.soundEnabled);
+            btn.classList.toggle('text-slate-500', !state.soundEnabled);
+        });
+
+        // Keyboard Support (Left/Right or A/D for Movement, Up/Down or W/S for Angle, +/- for Power, Spacebar to Shoot)
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Escape' && !instructionsModal.classList.contains('hidden')) {
+                closeInstructionsModal();
+                return;
+            }
+            if (e.code === 'KeyA' || e.code === 'ArrowLeft') state.keyLeft = true;
+            if (e.code === 'KeyD' || e.code === 'ArrowRight') state.keyRight = true;
+            if (e.code === 'ArrowUp' || e.code === 'KeyW') {
+                e.preventDefault();
+                unlockPredictionForNextShot();
+                state.keyUp = true;
+            }
+            if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+                e.preventDefault();
+                unlockPredictionForNextShot();
+                state.keyDown = true;
+            }
+            if (e.code === 'Equal' || e.code === 'NumpadAdd' || e.key === '+' || e.key === '=') {
+                e.preventDefault();
+                unlockPredictionForNextShot();
+                if (!e.repeat) {
+                    const bow = BOW_TYPES[state.selectedBowIndex];
+                    state.drawPower = clamp(Math.round(state.drawPower + 1), 15, bow.maxPower);
+                    sliderPower.value = state.drawPower;
+                    updateHUD();
+                }
+                state.keyPwrInc = true;
+            }
+            if (e.code === 'Minus' || e.code === 'NumpadSubtract' || e.key === '-' || e.key === '_') {
+                e.preventDefault();
+                unlockPredictionForNextShot();
+                if (!e.repeat) {
+                    const bow = BOW_TYPES[state.selectedBowIndex];
+                    state.drawPower = clamp(Math.round(state.drawPower - 1), 15, bow.maxPower);
+                    sliderPower.value = state.drawPower;
+                    updateHUD();
+                }
+                state.keyPwrDec = true;
+            }
+            if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT') {
+                e.preventDefault();
+                if (!instructionsModal.classList.contains('hidden')) {
+                    closeInstructionsModal();
+                    return;
+                }
+                fireArrow();
+            }
+        });
+        window.addEventListener('keyup', (e) => {
+            if (e.code === 'KeyA' || e.code === 'ArrowLeft') state.keyLeft = false;
+            if (e.code === 'KeyD' || e.code === 'ArrowRight') state.keyRight = false;
+            if (e.code === 'ArrowUp' || e.code === 'KeyW') state.keyUp = false;
+            if (e.code === 'ArrowDown' || e.code === 'KeyS') state.keyDown = false;
+            if (e.code === 'Equal' || e.code === 'NumpadAdd' || e.key === '+' || e.key === '=') state.keyPwrInc = false;
+            if (e.code === 'Minus' || e.code === 'NumpadSubtract' || e.key === '-' || e.key === '_') state.keyPwrDec = false;
+        });
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        // --- 14. MAIN GAME LOOP ---
+        let lastTime = performance.now();
+        function gameLoop(now) {
+            const dt = Math.min(0.05, (now - lastTime) / 1000);
+            lastTime = now;
+            const timeSec = now / 1000;
+
+            updatePhysics(dt, timeSec);
+            drawScene(timeSec);
+            requestAnimationFrame(gameLoop);
+        }
+
+        window.onload = function () {
+            resizeCanvas();
+            initEnvironment();
+            selectBow(0);
+            requestAnimationFrame(gameLoop);
+        };
+    </script>
+
+</body>
+</html>
